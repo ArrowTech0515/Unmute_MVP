@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page Customizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .flex {
+            display: flex;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .w-half {
+            width: 50%;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .text-wrap {
+            text-wrap: wrap;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left,
+        .right {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .left {
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            flex: 1;
+            overflow-y: auto;
+            border-right: 1px solid #aaa;
+        }
+
+        .right {
+            flex: 2;
+            position: relative;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-size: 12px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .rounded-full {
+            border-radius: 9999px;
+        }
+
+        #avatar {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #aaa;
+            border-radius: 9999px;
+        }
+
+        #chatWindow {
+            display: none;
+            position: absolute;
+            width: 300px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #chatHeader {
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #chatHeader img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        #chatBody {
+            padding: 10px;
+            background-color: #ebebeb;
+        }
+
+        #chatMessage {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+
+        #chatFooter {
+            padding: 10px;
+            text-align: center;
+            background-color: #fff;
+        }
+
+        #chatFooter button {
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #chatFooter button:hover {
+            background-color: #1aa34a;
+        }
+
+        #closeChat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .icon {
+            position: absolute;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transform-origin: center;
+        }
+
+        .vertical {
+            writing-mode: vertical-lr;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left text-wrap">
+            <h5>App behavior</h5>
+            <p style="color: #aaa;">When user clicks on button...</p>
+            <input type="radio" id="selectedManager" name="behaviorType" value="selected_manager" checked>
+            <label for="selectedManager">
+                Open window with support managers list.
+                User selects one of them, and then selects Telegarm.Whatsapp/etc.
+            </label><br>
+            <input type="radio" id="firstManager" name="behaviorType" value="first_manager">
+            <label for="firstManager">Open chat (the first support manager will be used)</label><br>
+            <input type="radio" id="directContact" name="behaviorType" value="direct_contact">
+            <label for="directContact">Open links directly without additional actions</label>
+
+            <div class="section" id="directContactSection" style="display: none;">
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directFacebookId">Facebook messenger id</label>
+                        </div>
+                        <input type="text" class="directFacebookId" name="directFacebookId"
+                            placeholder="@facebook_messenger_id" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directSkypeId">Skype</label></div>
+                        <input type="text" class="directSkypeId" name="directSkypeId" placeholder="skype_account" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directTelegramId">Telegram</label></div>
+                        <input type="text" class="directTelegramId" name="directTelegramId" placeholder="@telegram" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directInstagramId">Instagram</label></div>
+                        <input type="text" class="directInstagramId" name="directInstagramId"
+                            placeholder="@instagram" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="direectPhoneNumber">Phone Number</label></div>
+                        <input type="text" class="direectPhoneNumber" name="direectPhoneNumber"
+                            placeholder="79503587036" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directWhatsappPhoneNumber">Whatsapp Phone
+                                Number</label></div>
+                        <input type="text" class="directWhatsappPhoneNumber" name="directWhatsappPhoneNumber"
+                            placeholder="79503587034" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directEmail">Email</label></div>
+                        <input type="text" class="directEmail" name="directEmail"
+                            placeholder="example@yourdomain.com" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directIMessengerPhoneNumber">iMessages Phone
+                                Number</label></div>
+                        <input type="text" class="directIMessengerPhoneNumber" name="directIMessengerPhoneNumber"
+                            placeholder="79503587034" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directLineMessengerId">Lite Messenger Id</label>
+                        </div>
+                        <input type="text" class="directLineMessengerId" name="directLineMessengerId"
+                            placeholder="@linedevelopers" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directWeiboUserId">Weibo user ID</label></div>
+                        <input type="text" class="directWeiboUserId" name="directWeiboUserId" placeholder="weibo" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directViberPhoneNumber">Viber Phone
+                                Number</label>
+                        </div>
+                        <input type="text" class="directViberPhoneNumber" name="directViberPhoneNumber" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="directOrViberBotName">OR: Viber Bot Name</label>
+                        </div>
+                        <label style="color: #aaa; font-size: 12px;">User will open viber bot by clicking on
+                            button.
+                            Keep empty to use phone number instead</label><br>
+                        <input type="text" class="directOrViberBotName" name="directOrViberBotName" placeholder="" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="buttonSection">
+                <h3>Button</h3>
+
+                <div class="form-label font-bold"><label>Button Type</label></div>
+                <select id="buttonType">
+                    <option value="rounded">Rounded with text</option>
+                    <option value="square">Square with text</option>
+                    <option value="circle">Circle Bubble</option>
+                    <option value="tab">Tab</option>
+                </select>
+                <div class="form-label font-bold"><label>Button Text</label></div>
+                <div class="w-full"><input type="text" id="buttonText" value="Any questions? Contact Us" /></div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="buttonPositionDesktop">Button Position -
+                                Desktop</label></div>
+                        <select id="buttonPositionDesktop">
+                            <option value="bottom-right" selected>Bottom-right</option>
+                            <option value="bottom-center">Bottom-center</option>
+                            <option value="bottom-left">Bottom-left</option>
+                            <option value="top-right">Top-right</option>
+                            <option value="top-center">Top-center</option>
+                            <option value="top-left">Top-left</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label for="buttonPositionMobile">Button Position -
+                                Mobile</label></div>
+                        <select id="buttonPositionMobile">
+                            <option value="bottom-right" selected>Bottom-right</option>
+                            <option value="bottom-center">Bottom-center</option>
+                            <option value="bottom-left">Bottom-left</option>
+                            <option value="top-right">Top-right</option>
+                            <option value="top-center">Top-center</option>
+                            <option value="top-left">Top-left</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label>Additional Vertical Margin</label></div>
+                        <input type="number" id="verticalMargin" value="0" />
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label>Additional Horizontal Margin</label></div>
+                        <input type="number" id="horizontalMargin" value="0" />
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="flex w-half align-items-center">
+                        <input type="checkbox" id="makeButtonSmaller" />
+                        <div class="form-label font-bold"><label>Make button smaller</label></div>
+                    </div>
+                    <div class="flex w-half align-items-center">
+                        <input type="checkbox" id="expandOnDesktopByeDefault" />
+                        <div class="form-label font-bold"><label>Expand on desktop by default</label></div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="w-half align-items-center">
+                        <div class="form-label font-bold"><label>Button Background Color</label></div>
+                        <input type="color" id="buttonBgColor" name="buttonBgColor" value="#2222ff">
+                    </div>
+                    <div class="w-half">
+                        <div class="form-label font-bold"><label>Button Text Color</label></div>
+                        <input type="color" id="buttonTextColor" name="buttonTextColor" value="#ffffff">
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="flex w-half align-items-center">
+                        <input type="checkbox" id="wavesAnimation" checked />
+                        <div class="form-label font-bold"><label>Waves animation</label></div>
+                    </div>
+                    <div class="flex w-half align-items-center">
+                        <input type="checkbox" id="shakeAnimation" checked />
+                        <div class="form-label font-bold"><label>Shake animation</label></div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="flex w-half align-items-center">
+                        <input type="checkbox" id="redUnreadDot" checked />
+                        <div class="form-label font-bold"><label>Red unread dot</label></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="initialMessagePopupSection">
+                <h3>Initial Message Popup</h3>
+                <div class="flex align-items-center">
+                    <input type="checkbox" id="showInitialMsgPopup" name="showInitialMsgPopup" checked />
+                    <div class="form-label font-bold"><label>Show Initial Message Popup</label></div>
+                </div>
+                <label style="color: #aaa; font-size: 12px;">First manager will be used</label>
+                <div id="initialMessagePopupContent">
+                    <div class="flex align-items-center">
+                        <input type="checkbox" id="changeBrowserTabTitle" name="changeBrowserTabTitle" checked />
+                        <div class="form-label font-bold"><label>Change Browser Tab Title</label></div>
+                    </div>
+                    <label style="color: #aaa; font-size: 12px;">Browser tab title will be changed when message popup
+                        appears</label>
+                    <div>
+                        <div class="form-label font-bold"><label>Dismiss period</label></div>
+                        <label style="color: #aaa; font-size: 12px;">If user closed message, dismissed popup will be
+                            shown
+                            after...</label>
+                        <div class="flex">
+                            <div class="w-half">
+                                <input type="radio" id="xDays" name="dismissPeriod" checked />
+                                <label>X Days</label>
+                            </div>
+                            <div class="w-half">
+                                <input type="radio" id="everyPageRefresh" name="dismissPeriod" />
+                                <label>Every page refresh</label>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <input type="radio" id="never" name="dismissPeriod" />
+                                <label>Never</label>
+                            </div>
+                        </div>
+
+                        <div class="form-label font-bold"><label>Dismiss period X days</label></div>
+                        <label style="color: #aaa; font-size: 12px;">Works if you picked X days</label>
+                        <input type="number" id="dismissPeriod" value="1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="windowContentSection">
+                <h3>Window Content</h3>
+                <div class="form-label font-bold">
+                    <label>Title</label>
+                    <input type="text" id="titleText" value="Hello" />
+                </div>
+                <div class="form-label font-bold">
+                    <label>Subtitle</label>
+                    <input type="text" id="subTitileText"
+                        value="Click one of our representatives below to chat or send us an email to example@gmail.com" />
+                </div>
+                <div class="form-label font-bold">
+                    <label>Footer</label>
+                    <input type="text" id="footerText" value="Call us to +89997774652 from 0:00 to 24:00" />
+                </div>
+                <div class="form-label font-bold"><label>Copy WeChat username button text</label></div>
+                <label style="color: #aaa; font-size: 12px;">Only for mobile when wechat enabled</label>
+                <input type="text" id="wechatUsernameButtonText" value="Call us to +89997774652 from 0:00 to 24:00" />
+                <div class="flex align-items-center">
+                    <input type="checkbox" id="showMsgPreloader" name="showMsgPreloader" />
+                    <div class="form-label font-bold"><label>Show Message Preloader</label></div>
+                </div>
+                <div class="form-label font-bold"><label>Footer start chat text</label></div>
+                <input type="text" id="footerStartChatText" name="startChatWithText" value="Start Chat with:" />
+            </div>
+
+            <div class="" id="supportManagersSection">
+                <h3>Support Managers</h3>
+                <label style="color: #aaa; font-size: 12px;">Add multiple support managers. User will pick on of
+                    them to chat </label>
+                <div id="manager-list">
+                    <div class="section managerItem" id="managerItemSection">
+                        <div class="form-label font-bold">
+                            <label for="managerName">Name</label>
+                            <input type="text" id="managerName" name="managerName" value="Michael Burry" />
+                        </div>
+                        <div class="flex">
+                            <div class="w-half form-label font-bold">
+                                <label for="managerRole">Role</label>
+                                <input type="text" id="managerRole" name="managerRole" value="Business Owner" />
+                            </div>
+                            <div class="w-half form-label font-bold">
+                                <label for="caption">Caption</label>
+                                <input type="text" id="caption" name="caption" value="For any questions" />
+                            </div>
+                        </div>
+                        <div class="form-label font-bold">
+                            <label for="avatar">Avatar</label>
+                            <input type="file" id="avatar" name="avatar" />
+                        </div>
+                        <div class="w-full">
+                            <div class="form-label font-bold"><label for="initalMsg">Initial Message</label></div>
+                            <label style="color: #aaa; font-size: 12px;">User will see this message in chat after he
+                                picked
+                                manager</label>
+                            <input type="text" class="initalMsg" name="initalMsg"
+                                value="Hey! Describe your question, I will respond in 5 minutes" />
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="facebookId">Facebook messenger id</label>
+                                </div>
+                                <input type="text" class="facebookId" name="facebookId"
+                                    placeholder="@facebook_messenger_id" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="skypeId">Skype</label></div>
+                                <input type="text" class="skypeId" name="skypeId" placeholder="skype_account" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="telegramId">Telegram</label></div>
+                                <input type="text" class="telegramId" name="telegramId" placeholder="@telegram" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="instagramId">Instagram</label></div>
+                                <input type="text" class="instagramId" name="instagramId" placeholder="@instagram" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="phoneNumber">Phone Number</label></div>
+                                <input type="text" class="phoneNumber" name="phoneNumber" placeholder="79503587036" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="whatsappPhoneNumber">Whatsapp Phone
+                                        Number</label></div>
+                                <input type="text" class="whatsappPhoneNumber" name="whatsappPhoneNumber"
+                                    placeholder="79503587034" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="email">Email</label></div>
+                                <input type="text" class="email" name="email" placeholder="example@yourdomain.com" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="iMessengerPhoneNumber">iMessages Phone
+                                        Number</label></div>
+                                <input type="text" class="iMessengerPhoneNumber" name="iMessengerPhoneNumber"
+                                    placeholder="79503587034" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="lineMessengerId">Lite Messenger Id</label>
+                                </div>
+                                <input type="text" class="lineMessengerId" name="lineMessengerId"
+                                    placeholder="@linedevelopers" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="wechatUserName">WeChat Username</label>
+                                </div>
+                                <label style="color: #aaa; font-size: 12px;">Will be shown on mobile</label>
+                                <input type="text" class="wechatUserName" name="wechatUserName" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="wechatUserQR">WeChat User QR</label></div>
+                                <label style="color: #aaa; font-size: 12px;">Will be shown on desktop</label>
+                                <input type="file" class="wechatUserQR" name="wechatUserQR" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="weiboUserId">Weibo user ID</label></div>
+                                <input type="text" class="weiboUserId" name="weiboUserId" placeholder="weibo" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="viberPhoneNumber">Viber Phone
+                                        Number</label>
+                                </div>
+                                <input type="text" class="viberPhoneNumber" name="viberPhoneNumber" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="orViberBotName">OR: Viber Bot Name</label>
+                                </div>
+                                <label style="color: #aaa; font-size: 12px;">User will open viber bot by clicking on
+                                    button.
+                                    Keep empty to use phone number instead</label><br>
+                                <input type="text" class="orViberBotName" name="orViberBotName" placeholder="" />
+                            </div>
+                        </div>
+                        <button type="button" class="removeItemButton">Remove</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="addItemButton">Add Item</button>
+        </div>
+
+        <div class="right">
+            <iframe id="iframe" src=""></iframe>
+            <div id="chatButton">
+                <div class="icon">
+                    <i class="fas fa-phone"></i>
+                    <span id="chatButtonText">Any questions? Contact Us</span>
+                </div>
+            </div>
+            <div id="chatWindow">
+                <div id="chatHeader">
+                    <div style="display: flex; align-items: center; min-width: 250px;">
+                        <img src="https://via.placeholder.com/30" alt="Profile Picture">
+                        <div>
+                            <div>Michael Burry</div>
+                            <div style="font-size: 12px;">Business Owner</div>
+                        </div>
+                    </div>
+                    <button id="closeChat">&times;</button>
+                </div>
+                <div id="chatBody">
+                    <div id="chatMessage">
+                        <p><strong>Michael Burry</strong></p>
+                        <p>Hey! Describe your question, I'll respond in 5 minutes.</p>
+                        <p style="text-align:right; font-size: 12px;">05:06</p>
+                    </div>
+                </div>
+                <div id="chatFooter">
+                    <button>Start Chat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            function updateSections(selectedType) {
+                if (selectedType === 'selected_manager' || selectedType === 'first_manager') {
+                    $('#directContactSection').hide();
+                    $('#initialMessagePopupSection').show();
+                    $('#windowContentSection').show();
+                    $('#supportManagersSection').show();
+                    $('#addItemButton').show();
+                } else if (selectedType === 'direct_contact') {
+                    $('#directContactSection').show();
+                    $('#initialMessagePopupSection').hide();
+                    $('#windowContentSection').hide();
+                    $('#supportManagersSection').hide();
+                    $('#addItemButton').hide();
+                }
+            }
+
+            function updatePosition() {
+                let type = $('#buttonPositionDesktop').val();
+                let btnElement = $('#chatButton').find('.icon');
+                switch (type) {
+                    case 'bottom-right':
+                        btnElement.css({
+                            'bottom': '20px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'top': 'auto'
+                        });
+                        $('#chatWindow').css({
+                            'bottom': '80px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'top': 'auto'
+                        });
+                        break;
+                    case 'bottom-center':
+                        btnElement.css({
+                            'bottom': '20px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'top': 'auto',
+                            'transform': 'translateX(-50%)'
+                        });
+                        $('#chatWindow').css({
+                            'bottom': '80px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'top': 'auto',
+                            'transform': 'translateX(-50%)'
+                        });
+                        break;
+                    case 'bottom-left':
+                        btnElement.css({
+                            'bottom': '20px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'top': 'auto'
+                        });
+                        $('#chatWindow').css({
+                            'bottom': '80px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'top': 'auto'
+                        });
+                        break;
+                    case 'top-right':
+                        btnElement.css({
+                            'top': '20px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'bottom': 'auto'
+                        });
+                        $('#chatWindow').css({
+                            'top': '60px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'bottom': 'auto'
+                        });
+                        break;
+                    case 'top-center':
+                        btnElement.css({
+                            'top': '20px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translateX(-50%)'
+                        });
+                        $('#chatWindow').css({
+                            'top': '60px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translateX(-50%)'
+                        });
+                        break;
+                    case 'top-left':
+                        btnElement.css({
+                            'top': '20px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'bottom': 'auto'
+                        });
+                        $('#chatWindow').css({
+                            'top': '60px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'bottom': 'auto'
+                        });
+                        break;
+                    case 'left':
+                        btnElement.css({
+                            'top': '50%',
+                            'left': '20px',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translateY(-50%)'
+                        });
+                        $('#chatWindow').css({
+                            'top': '50%',
+                            'left': '60px',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translateY(-50%)'
+                        });
+                        break;
+                    case 'right':
+                        btnElement.css({
+                            'top': '50%',
+                            'right': '20px',
+                            'left': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translateY(-50%)'
+                        });
+                        $('#chatWindow').css({
+                            'top': '50%',
+                            'right': '60px',
+                            'left': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translateY(-50%)'
+                        });
+                        break;
+                }
+            }
+
+            function updateButton() {
+                updatePosition();
+                var btnElement = $('#chatButton').find('.icon');
+                let buttonType = $('#buttonType').val();
+                let buttonText = $('#buttonText').val();
+                let bgColor = $('#buttonBgColor').val();
+                let textColor = $('#buttonTextColor').val();
+                btnElement.css({ 'background-color': bgColor, 'color': textColor });
+                btnElement.find("span").text(buttonText);
+                $('#chatHeader').css({ 'background-color': bgColor, 'color': textColor });
+                $('#chatFooter button').css({ 'background-color': bgColor, 'color': textColor });
+                switch (buttonType) {
+                    case "rounded":
+                        btnElement.css({
+                            'border-radius': '20px',
+                            'width': '',
+                            'height': '',
+                            'justify-content': ''
+                        })
+                        $('#chatButtonText').show();
+                        break;
+                    case "square":
+                        btnElement.css({
+                            'border-radius': '0px',
+                            'width': '',
+                            'height': '',
+                            'justify-content': ''
+                        })
+                        $('#chatButtonText').show();
+                        break;
+                    case "circle":
+                        btnElement.css({
+                            'border-radius': '50%',
+                            'width': '40px',
+                            'height': '40px',
+                            'justify-content': 'center'
+                        })
+                        $('#chatButtonText').hide();
+                        break;
+                    case "tab":
+                        btnElement.css({
+                            'border-radius': '5px',
+                            'width': '',
+                            'height': '',
+                            'justify-content': ''
+                        })
+                        $('#chatButtonText').show();
+                        break;
+                }
+            }
+
+            $('#iframe').attr('src', "https://www.rabbitseo.com");
+
+            updateButton();
+            updateSections();
+
+            $('#showInitialMsgPopup').on('change', function () {
+                if(this.checked) {
+                    $('#initialMessagePopupContent').show();
+                } else {
+                    $('#initialMessagePopupContent').hide();
+                }
+            });
+
+            $('#buttonBgColor, #buttonTextColor, #buttonType, #buttonText, #buttonPositionDesktop').change(updateButton);
+
+            $('input[name="behaviorType"]').change(function () {
+                updateSections($(this).val());
+            });
+
+            $('#chatButton').on('click', '.icon', function () {
+                $('#chatWindow').toggle();
+            });
+
+            $('#closeChat').click(function () {
+                $('#chatWindow').hide();
+            });
+
+            $('#manager-list').on('click', '.removeItemButton', function () {
+                $(this).parent('.managerItem').remove();
+            });
+
+            $('#addItemButton').click(function () {
+                let newItem = `
+                    <div class="section managerItem" id="initialMessagePopupSection">
+                        <div class="form-label font-bold">
+                            <label for="managerName">Name</label>
+                            <input type="text" id="managerName" name="managerName" value="Michael Burry" />
+                        </div>
+                        <div class="flex">
+                            <div class="w-half form-label font-bold">
+                                <label for="managerRole">Role</label>
+                                <input type="text" id="managerRole" name="managerRole" value="Business Owner" />
+                            </div>
+                            <div class="w-half form-label font-bold">
+                                <label for="caption">Caption</label>
+                                <input type="text" id="caption" name="caption" value="For any questions" />
+                            </div>
+                        </div>
+                        <div class="form-label font-bold">
+                            <label for="avatar">Avatar</label>
+                            <input type="file" id="avatar" name="avatar" />
+                        </div>
+                        <div class="w-full">
+                            <div class="form-label font-bold"><label for="initalMsg">Initial Message</label></div>
+                            <label style="color: #aaa; font-size: 12px;">User will see this message in chat after he picked
+                                manager</label>
+                            <input type="text" class="initalMsg" name="initalMsg"
+                                value="Hey! Describe your question, I will respond in 5 minutes" />
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="facebookId">Facebook messenger id</label>
+                                </div>
+                                <input type="text" class="facebookId" name="facebookId"
+                                    placeholder="@facebook_messenger_id" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="skypeId">Skype</label></div>
+                                <input type="text" class="skypeId" name="skypeId" placeholder="skype_account" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="telegramId">Telegram</label></div>
+                                <input type="text" class="telegramId" name="telegramId" placeholder="@telegram" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="instagramId">Instagram</label></div>
+                                <input type="text" class="instagramId" name="instagramId" placeholder="@instagram" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="phoneNumber">Phone Number</label></div>
+                                <input type="text" class="phoneNumber" name="phoneNumber" placeholder="79503587036" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="whatsappPhoneNumber">Whatsapp Phone
+                                        Number</label></div>
+                                <input type="text" class="whatsappPhoneNumber" name="whatsappPhoneNumber"
+                                    placeholder="79503587034" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="email">Email</label></div>
+                                <input type="text" class="email" name="email" placeholder="example@yourdomain.com" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="iMessengerPhoneNumber">iMessages Phone
+                                        Number</label></div>
+                                <input type="text" class="iMessengerPhoneNumber" name="iMessengerPhoneNumber"
+                                    placeholder="79503587034" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="lineMessengerId">Lite Messenger Id</label>
+                                </div>
+                                <input type="text" class="lineMessengerId" name="lineMessengerId"
+                                    placeholder="@linedevelopers" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="wechatUserName">WeChat Username</label></div>
+                                <label style="color: #aaa; font-size: 12px;">Will be shown on mobile</label>
+                                <input type="text" class="wechatUserName" name="wechatUserName" placeholder="" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="wechatUserQR">WeChat User QR</label></div>
+                                <label style="color: #aaa; font-size: 12px;">Will be shown on desktop</label>
+                                <input type="file" class="wechatUserQR" name="wechatUserQR" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="weiboUserId">Weibo user ID</label></div>
+                                <input type="text" class="weiboUserId" name="weiboUserId" placeholder="weibo" />
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="viberPhoneNumber">Viber Phone Number</label>
+                                </div>
+                                <input type="text" class="viberPhoneNumber" name="viberPhoneNumber" />
+                            </div>
+                            <div class="w-half">
+                                <div class="form-label font-bold"><label for="orViberBotName">OR: Viber Bot Name</label>
+                                </div>
+                                <label style="color: #aaa; font-size: 12px;">User will open viber bot by clicking on button.
+                                    Keep empty to use phone number instead</label>
+                            <input type="text" class="orViberBotName" name="orViberBotName" placeholder="" />
+                        </div>
+                    </div>
+                    <button type="button" class="removeItemButton">Remove</button>
+                </div>
+                    `;
+                $('#manager-list').append(newItem);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page Customizer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left, .right {
+            box-sizing: border-box;
+        }
+        .left {
+            padding-left: 20px;
+            padding-right: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            flex: 1;
+            border-right: 1px solid #aaa;
+            overflow-y: auto;
+        }
+
+        .right {
+            flex: 2;
+            position: relative;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        #messageText {
+            display: flex;
+            align-items: center;
+        }
+
+        #messageBar {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        #messageButton {
+            font-size: 14px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <h3>Enter site to preview:</h3>
+            <input type="text" id="url" value="https://www.rabbitseo.com" placeholder="https://www.example.com" />
+
+            <h5>Messages count</h5>
+            <p>How many messages will your visitors see?</p>
+            <input type="radio" id="singleMSg" name="messageType" value="single" checked>
+            <label for="singleMSg">Just One Message</label><br>
+            <input type="radio" id="randomMsg" name="messageType" value="random">
+            <label for="randomMsg">Show visitors a random message from a collection</label>
+
+            <h3>Meessages</h3>
+            <label id="randomMsgLabel" style="display: none;">
+                Add multiple messages to show one to vistors at random. The previewer will show your last edited
+                message.
+            </label>
+            <div class="section" id="randomMessages">
+                <div class="msgItem">
+                    <label>Text</label>
+                    <input type="text" id="msgDescription" placeholder="We updated our cookie agreement. Check it!"
+                        value="Message Text Here." />
+                    <div>
+                        <label for="msgShowButton">Show Button:</label>
+                        <input type="checkbox" class="msgShowButton" name="msgShowButton" checked="true">
+                    </div>
+                    <div class="buttonConfig">
+                        <div>
+                            <label for="msgButtonText">Button Text:</label>
+                            <input type="text" id="msgButtonText" name="msgButtonText" value="Check agreement">
+                        </div>
+                        <div>
+                            <label for="msgButtonLink">Button Link</label><br>
+                            <label for="msgButtonLink" style="color:#aaa; font-size: 13px;">Keep this field empty to
+                                close
+                                message on click</label>
+
+                            <input type="text" id="msgButtonLink" name="msgButtonLink"
+                                placeholder="https://www.example.com">
+                        </div>
+                    </div>
+                    <button type="button" class="removeItemButton">Remove</button>
+                </div>
+            </div>
+
+            <div id="randomMessageConfig" style="display: none;">
+                <button type="button" id="addItemButton">Add Item</button>
+            </div>
+
+            <div class="section">
+                <h3>Theme</h3>
+                <div style="display: flex;">
+                    <div id="themeLeft" style="width: 50%;">
+                        <label for="messagePositionDesktop">Message Position - Desktop:</label>
+                        <select id="messagePositionDesktop" name="messagePositionDesktop">
+                            <option value="top-inside" selected>Top (inside the page)</option>
+                            <option value="top-over">Top (over the page)</option>
+                            <option value="bottom-over">Bottom (over the page)</option>
+                            <option value="hide">Hide on desktop</option>
+                        </select>
+                    </div>
+                    <div id="themeRight" style="width: 50%;">
+                        <label for="messagePositionMobile">Message Position - Mobile:</label>
+                        <select id="messagePositionMobile" name="messagePositionMobile">
+                            <option value="top-inside">Top (inside the page)</option>
+                            <option value="top-over">Top (over the page)</option>
+                            <option value="bottom-over">Bottom (over the page)</option>
+                            <option value="hide">Hide on mobile</option>
+                        </select>
+                    </div>
+                </div>
+
+                <p>Style</p>
+                <div style="display: flex;" for="Style">
+                    <div style="width: 50%;">
+                        <input type="radio" id="styleProminent" name="style" value="prominent" checked>
+                        <label for="styleProminent">Prominent</label><br>
+                    </div>
+                    <div style="width: 50%;">
+                        <input type="radio" id="styleSlim" name="style" value="slim">
+                        <label for="styleSlim">Slim</label>
+                    </div>
+                </div>
+                <div style="display: flex;" for="Style">
+                    <div style="width: 50%;">
+                        <label for="bgColor">Background Color:</label>
+                        <input type="color" id="bgColor" name="bgColor" value="#68ffbf">
+                    </div>
+                    <div style="width: 50%;">
+                        <label for="textColor">Message Text Color:</label>
+                        <input type="color" id="textColor" name="textColor" value="#000000">
+                    </div>
+                </div>
+                <div style="display: flex;" for="Style">
+                    <div style="width: 50%;">
+                        <label for="msgButtonBgColor">Button Background Color:</label>
+                        <input type="color" id="msgButtonBgColor" name="msgButtonBgColor" value="#ffffff">
+                    </div>
+                    <div style="width: 50%;">
+                        <label for="msgButtonTextColor">Button Text Color:</label>
+                        <input type="color" id="msgButtonTextColor" name="msgButtonTextColor" value="#14cdd3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Dismissal Behavior</h3>
+                <div>
+                    <label for="showCloseButton">Show Close Button:</label>
+                    <input type="checkbox" id="showCloseButton" name="showCloseButton">
+                </div>
+                <div>
+                    <label for="autoDismiss">Automatically dismiss after a few seconds</label>
+                    <input type="checkbox" id="autoDismiss" name="autoDismiss">
+                </div>
+                <div id="hideDelayConfig" style="display: none;">
+                    <label for="hideDelay">Hide Delay (seconds):</label>
+                    <input type="number" id="hideDelay" name="hideDelay" min="1">
+                </div>
+            </div>
+            <button id="loadPage">Save settings</button>
+        </div>
+        <div class="right">
+            <div id="messageBar" class="message-bar">
+                <div id="messageText">Message Text Here.</div>
+                <a id="messageButton" class="message-button" href="#">Check agreement</a>
+                <div id="closeButton" class="close-button">X</div>
+            </div>
+            <iframe id="iframe" src=""></iframe>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var url = $('#url').val();
+            $('#iframe').attr('src', url);
+
+            var bgColor = $('#bgColor').val();
+            var textColor = $('#textColor').val();
+            var msgButtonBgColor = $('#msgButtonBgColor').val();
+            var msgButtonTextColor = $('#msgButtonTextColor').val();
+            $('#messageButton').css('background-color', msgButtonBgColor).show();
+            $('#messageButton').css('color', msgButtonTextColor).show();
+            $('#messageBar').css('color', textColor).show();
+            $('#messageBar').css('background-color', bgColor).show();
+
+            if ($('#showCloseButton').prop('checked') == true) {
+                $('#closeButton').show();
+            } else {
+                $('#closeButton').hide();
+            }
+
+            $('input[name="messageType"]').change(function () {
+                if ($(this).val() === 'random') {
+                    $('#randomMessageConfig').show();
+                    $('#randomMsgLabel').show();
+                    // $('#msgDescription').prop('disabled', true);
+                } else {
+                    $('#randomMessageConfig').hide();
+                    $('#randomMsgLabel').hide();
+                    // $('#msgDescription').prop('disabled', false);
+                }
+            });
+
+            $('#msgDescription').on('change', function () {
+                $('#messageText').html($(this).val());
+            });
+            $('#bgColor').change(function () {
+                $('#messageBar').css('background-color', $(this).val()).show();
+            });
+
+            $('#textColor').change(function () {
+                $('#messageBar').css('color', $(this).val()).show();
+            });
+
+
+            $('input[name="style"]').change(function () {
+                if ($(this).val() === 'prominent') {
+                    $('#messageBar').css('font-size', '14px');
+                    $('#messageButton').css({
+                        'font-size': '14px',
+                        'background-color': $('#msgButtonBgColor').val(),
+                        'padding': '5px'
+                    });
+
+                } else {
+                    $('#messageBar').css('font-size', '12px');
+                    $('#messageButton').css({
+                        'font-size': '12px',
+                        'background-color': '',
+                        'padding': ''
+                    });
+                }
+            });
+
+            $('#msgButtonText').change(function () {
+                $('#messageButton').html($(this).val());
+            });
+
+            $('#msgButtonLink').change(function () {
+                $('#messageButton').prop('href', $(this).val());
+            });
+
+            $('#msgButtonBgColor').change(function () {
+                $('#messageButton').css('background-color', $(this).val()).show();
+            });
+
+            $('#msgButtonTextColor').change(function () {
+                $('#messageButton').css('color', $(this).val()).show();
+            });
+
+            $('#messagePositionDesktop').change(function () {
+                switch ($(this).val()) {
+                    case 'top-inside':
+                        $('#messageBar').css({
+                            "position": "unset"
+                        });
+                        $('#messageBar').show();
+                        break;
+                    case 'top-over':
+                        $('#messageBar').css({
+                            "position": "absolute"
+                        });
+                        $('#messageBar').show();
+                        break;
+                    case 'bottom-over':
+                        $('#messageBar').css({
+                            "position": "absolute",
+                            "bottom": "0px"
+                        });
+                        $('#messageBar').show();
+                        break;
+                    case 'hide':
+                        $('#messageBar').hide();
+                        break;
+                }
+            });
+
+            $('#showCloseButton').change(function () {
+                if (this.checked == true) {
+                    $('#closeButton').show();
+                } else {
+                    $('#closeButton').hide();
+                }
+            });
+
+            $('#autoDismiss').change(function () {
+                if (this.checked) {
+                    $('#hideDelayConfig').show();
+                } else {
+                    $('#hideDelayConfig').hide();
+                }
+            });
+
+            $('#hideDelayConfig').change(function () {
+                var autoDismiss = $('#autoDismiss').prop('checked');
+                var hideDelay = $('#hideDelay').val();
+                if (autoDismiss && hideDelay) {
+                    setTimeout(function () {
+                        $('#messageBar').fadeOut();
+                    }, hideDelay * 1000); // Convert seconds to milliseconds
+                }
+            });
+
+            if ($('input[name="messageType"]:checked').val() === 'random') {
+                var msgList = $('.msgItem').map(function () {
+                    return $(this).val();
+                }).get();
+                if (msgList.length > 0) {
+                    msgDescription = msgList[Math.floor(Math.random() * msgList.length)];
+                }
+            }
+
+            $('#randomMessages').on('change', '.msgShowButton', function () {
+                if (this.checked) {
+                    $(this).parent().parent().children('.buttonConfig').show();
+                } else {
+                    $('#messageButton').hide();
+                    $(this).parent().parent().children('.buttonConfig').hide();
+                }
+            });
+
+            $('#randomMessages').on('click', '.removeItemButton', function () {
+                $(this).parent('.msgItem').remove();
+            });
+
+            $('#addItemButton').click(function () {
+                var newItem = `
+                    <div class="msgItem">
+                        <label>Text</label>
+                        <input type="text" id="msgDescription" placeholder="We updated our cookie agreement. Check it!"
+                            value="Message Text Here." />
+                        <div>
+                            <label for="msgShowButton">Show Button:</label>
+                            <input type="checkbox" class="msgShowButton" name="msgShowButton" checked="true">
+                        </div>
+                        <div class="buttonConfig">
+                            <div>
+                                <label for="msgButtonText">Button Text:</label>
+                                <input type="text" id="msgButtonText" name="msgButtonText" value="Check agreement">
+                            </div>
+                            <div>
+                                <label for="msgButtonLink">Button Link</label><br>
+                                <label for="msgButtonLink" style="color:#aaa; font-size: 13px;">Keep this field empty to
+                                    close
+                                    message on click</label>
+
+                                <input type="text" id="msgButtonLink" name="msgButtonLink"
+                                    placeholder="https://www.example.com">
+                            </div>
+                        </div>
+                        <button type="button" class="removeItemButton">Remove</button>
+                    </div>
+                    `;
+                $('#randomMessages').append(newItem);
+            });
+
+            $('#closeButton').click(function () {
+                $('#messageBar').hide();
+            });
+        });
+    </script>
+</body>
+
+</html>
