@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Page Customizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        .left, .right {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .left {
+            flex: 1;
+            border-right: 1px solid #ccc;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+        .right {
+            flex: 2;
+            position: relative;
+            background-color: #fff;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .icon {
+            position: absolute;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transform-origin: center;
+        }
+        .rounded {
+            border-radius: 5px;
+        }
+        .square {
+            border-radius: 0px;
+        }
+        .circle {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+        }
+        h3, label {
+            margin: 10px 0 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            background-color: #6200ea;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+        .social-button {
+            min-width: 45px;
+            min-height: 45px;
+            max-width: 45px;
+            max-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        .social-bar {
+            position: absolute;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .social-bar.top, .social-bar.bottom {
+            width: 100%;
+            justify-content: center;
+        }
+        .social-bar.left, .social-bar.right {
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .social-bar button {
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .social-bar .arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ccc;
+            width: 30px;
+            height: 30px;
+        }
+        .social-bar .arrow:hover {
+            background-color: #999;
+        }
+        .vertical {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+        }
+        .vertical-left {
+            writing-mode: vertical-rl;
+            transform: rotate(0deg);
+        }
+        .vertical-left .material-icons,
+        .vertical-right .material-icons {
+            transform: rotate(90deg);
+        }
+        .vertical-right .material-icons {
+            transform: rotate(-90deg);
+        }
+        .small-space  a {
+            margin: 2px;
+        }
+        .no-space a {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h3>Social Media Links</h3>
+            <label for="facebook">Facebook</label>
+            <input type="text" id="facebook" placeholder="https://facebook.com/...">
+            <label for="instagram">Instagram</label>
+            <input type="text" id="instagram" placeholder="https://instagram.com/...">
+            <label for="twitter">Twitter</label>
+            <input type="text" id="twitter" placeholder="https://twitter.com/...">
+            <label for="linkedin">LinkedIn</label>
+            <input type="text" id="linkedin" placeholder="https://linkedin.com/...">
+            <label for="pinterest">Pinterest</label>
+            <input type="text" id="pinterest" placeholder="https://pinterest.com/...">
+            <label for="youtube">YouTube</label>
+            <input type="text" id="youtube" placeholder="https://youtube.com/...">
+            <label for="tiktok">TikTok</label>
+            <input type="text" id="tiktok" placeholder="https://tiktok.com/...">
+            <label for="wechat">WeChat</label>
+            <input type="text" id="wechat" placeholder="weixin://dl/chat?...">
+            <label for="weibo">Weibo</label>
+            <input type="text" id="weibo" placeholder="https://weibo.com/...">
+            <label for="vk">VK</label>
+            <input type="text" id="vk" placeholder="https://vk.com/...">
+            <label for="snapchat">Snapchat</label>
+            <input type="text" id="snapchat" placeholder="https://snapchat.com/...">
+            <label for="barPosition">Bar Position</label>
+            <select id="barPosition">
+                <option value="top">Top</option>
+                <option value="left">Left</option>
+                <option value="bottom">Bottom</option>
+                <option value="right">Right</option>
+            </select>
+            <label for="colorTheme">Color Theme</label>
+            <select id="colorTheme">
+                <option value="colored">Colored</option>
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+            </select>
+            <label for="buttonShape">Buttons Shape</label>
+            <select id="buttonShape">
+                <option value="square">Square</option>
+                <option value="rounded">Rounded</option>
+                <option value="circle">Circle</option>
+            </select>
+            <label for="animationType">Animation Type</label>
+            <select id="animationType">
+                <option value="grow">Grow</option>
+                <option value="simple">Simple</option>
+            </select>
+            <label for="buttonSpace">Button Space</label>
+            <select id="buttonSpace">
+                <option value="small-space">Small space</option>
+                <option value="no-space">No space</option>
+            </select>
+            <label>Mobile Display</label>
+            <input type="radio" id="showMobile" name="mobileDisplay" value="show" checked>
+            <label for="showMobile">Show on mobile</label>
+            <input type="radio" id="hideMobile" name="mobileDisplay" value="hide">
+            <label for="hideMobile">Hide</label>
+            <label>Close Button Display</label>
+            <input type="radio" id="showCloseButton" name="closeButtonDisplay" value="show" checked>
+            <label for="showCloseButton">Show close button</label>
+            <input type="radio" id="hideCloseButton" name="closeButtonDisplay" value="hide">
+            <label for="hideCloseButton">Hide</label>
+            <button id="saveSettings">Save settings</button>
+        </div>
+        <div class="right">
+            <iframe id="iframe" src="https://www.rabbitseo.com"></iframe>
+            <div id="socialBar">
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('#saveSettings').click(function() {
+            var barPosition = $('#barPosition').val();
+            var colorTheme = $('#colorTheme').val();
+            var buttonShape = $('#buttonShape').val();
+            var animationType = $('#animationType').val();
+            var buttonSpace = $('#buttonSpace').val();
+
+            $('#iframe').attr('src', "https://www.rabbitseo.com");
+
+            const buttons = [
+                { name: "Facebook", icon: "facebook-f", color: "#3a579a" },
+                { name: "Instagram", icon: "instagram", color: "#f31e58" },
+                { name: "Twitter", icon: "twitter", color: "#000000" },
+                { name: "LinkedIn", icon: "linkedin-in", color: "#127bb6" },
+                { name: "Pinterest", icon: "pinterest", color: "#cd1c1f" },
+                { name: "YouTube", icon: "youtube", color: "#a8240f" },
+                { name: "TikTok", icon: "tiktok", color: "#000000" },
+                { name: "WeChat", icon: "weixin", color: "#00e26e" },
+                { name: "Weibo", icon: "weibo", color: "#fff" },
+                { name: "VK", icon: "vk", color: "#0077FF" },
+                { name: "Snapchat", icon: "snapchat-ghost", color: "#FFFC00" }
+            ];
+
+            var buttonHtml = '<div class="icon" style="display: flex; font-size: 16px;">';
+            buttons.forEach(button => {
+                var backColor =colorTheme === "light" ? "white" : colorTheme === "dark" ? "rgba(0,0,0,0.7)" : button.color;
+                var textColor = colorTheme === "light" ? "black" : backColor === "#fff" ? "rgba(255,0,0,0.7)" : "white";
+                var url = $(`#${button.name.toLowerCase()}`).val();
+                buttonHtml += `<a href="${url}" class="${buttonShape} ${colorTheme} social-button" style=" 
+                background-color: ${backColor}; color: ${textColor};" target="_blank">
+                    <i class="fab fa-${button.icon}"></i>
+                </a>`;
+            });
+            buttonHtml += '</div>';
+
+            $('#socialBar').html(buttonHtml);
+
+            var button = $('#socialBar').find('.icon');
+
+            if (barPosition === 'left' || barPosition === 'right') {
+                button.addClass('vertical');
+            } else {
+                button.removeClass('vertical');
+            }
+
+            // Update bar position
+            switch (barPosition) {
+                case 'bottom':
+                    button.css({
+                        'bottom': '20px',
+                        'left': '50%',
+                        'right': 'auto',
+                        'top': 'auto',
+                        'transform': 'translateX(-50%)'
+                    });
+                    break;
+                case 'top':
+                    button.css({
+                        'top': '20px',
+                        'left': '50%',
+                        'right': 'auto',
+                        'bottom': 'auto',
+                        'transform': 'translateX(-50%)'
+                    });
+                    break;
+                case 'left':
+                    button.css({
+                        'top': '50%',
+                        'left': '20px',
+                        'right': 'auto',
+                        'bottom': 'auto',
+                        'transform': 'translateY(-50%)'
+                    });
+                    break;
+                case 'right':
+                    button.css({
+                        'top': '50%',
+                        'right': '20px',
+                        'left': 'auto',
+                        'bottom': 'auto',
+                        'transform': 'translateY(-50%)'
+                    });
+                    break;
+            }
+
+            // Apply the button spacing class
+            $('#socialBar .icon').removeClass('small-space no-space').addClass(buttonSpace);
+        });
+
+        $('#socialBar .arrow').click(function() {
+            $('#socialBar').toggle();
+        });
+
+    </script>
+</body>
+</html>

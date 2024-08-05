@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popup Forms</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left,
+        .right {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .left {
+            flex: 1;
+            border-right: 1px solid #ccc;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+
+        .right {
+            flex: 2;
+            position: relative;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .section {
+            margin-top: 20px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .explain {
+            color: #777;
+            font-size: 12px;
+        }
+
+        input,
+        select,
+        button {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #6200ea;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3700b3;
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .modal h2 {
+            margin: 20px 0;
+        }
+
+        .modal p {
+            color: #555;
+        }
+
+        .modal button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #cc0000;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .top-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            margin: 0px;
+        }
+
+        .top img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            margin: 20px;
+        }
+
+        .left-cover img,
+        .right-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .left-cover {
+            flex-direction: row;
+        }
+
+        .right-cover {
+            flex-direction: row-reverse;
+        }
+
+        .top-cover,
+        .top {
+            flex-direction: column;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 5px 8px;
+            text-decoration: none;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-container input {
+            margin-right: 8px;
+        }
+
+        .icon-container {
+            display: none;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 100px;
+            font-size: 60px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class='section'>
+                <h4>Header design</h4>
+                <input type="text" id="headerText" value="User put a modal here" style="width: 50%;">
+                <input type="color" id="headerColor" value="#000000" style="width: 50px;">
+            </div>
+            <div class='section'>
+                <h4>Text design</h4>
+                <textarea id="mainText" style="width: 50%; height: 100px;">Up to 15% off for limited time and on selected items. plus free shipping for the first 100 buyers</textarea>
+                <input type="color" id="mainTextColor" value="#888888" style="width: 50px;">
+            </div>
+            <div class='section'>
+                <h4>Button design</h4>
+                <label for="buttonText">Button Text</label>
+                <input type="text" id="buttonText" value="Get the discount now!" style="width: 100%; margin-bottom: 10px;">
+                <label for="buttonLink">Link</label>
+                <input type="url" id="buttonLink" value="https://example.com" style="width: 100%; margin-bottom: 10px;">
+                <label for="actionType">ActionType</label>
+                <select id="actionType" style="width: 100%; margin-bottom: 10px;">
+                    <option value="new_tab" selected>Open in new tab</option>
+                    <option value="same_tab">Open in same tab</option>
+                    <option value="close">Close</option>
+                </select>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <label style="align-content: right;">Text color</label>
+                    <input type="color" id="buttonTextColor" value="#ffffff" style="width: 40%;">
+                    <label>Background color</label>
+                    <input type="color" id="buttonBgColor" value="#ff0000" style="width: 40%;">
+                </div>
+            </div>
+            <div class='section'>
+                <h4>Image design</h4>
+                <label for="addition">Addition</label>
+                <select id="addition" style="width: 100%; margin-bottom: 10px;">
+                    <option value="icon">Icon</option>
+                    <option value="image_video" selected>Image or Video (mp4)</option>
+                    <option value="none">None</option>
+                </select>
+                <div class="position-container">
+                    <label for="position">Position</label>
+                    <select id="position" style="width: 100%; margin-bottom: 10px;">
+                        <option value="top_cover" selected>Top-Cover</option>
+                        <option value="top">Top</option>
+                        <option value="left_cover">Left-Cover</option>
+                        <option value="right_cover">Right-Cover</option>
+                    </select>
+                </div>
+                <div class="icon-container">
+                    <label for="iconColor">Icon Color</label>
+                    <input type="color" id="iconColor" value="#ff0000" style="width: 50px;">
+                </div>
+                <div class="image-container">
+                    <label for="file">File</label>
+                    <input type="file" id="file" style="width: 100%; margin-bottom: 10px;">
+                    <label for="link">Link</label>
+                    <input type="url" id="link" style="width: 100%;">
+                </div>
+            </div>
+            <div class='section'>
+                <h4>Popup design</h4>
+                <label style="align-content: right;">Popup color</label>
+                <input type="color" id="popupColor" value="#ffffff" style="width: 20%;">
+            </div>
+            <div class='section'>
+                <h4>Close button design</h4>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="closeDesign" checked>
+                    <label for="closeDesign">Show close button</label>
+                </div>
+                <div class="checkbox-container" id="disableBackdropDiv">
+                    <input type="checkbox" id="disableBackdrop">
+                    <label for="disableBackdrop">Don't hide popup on backdrop click</label>
+                </div>
+            </div>
+            <div>
+                <p>Visibility</p>
+                <input type="radio" id="visibleDevices" name="visibility" value="device" checked>
+                <label for="visibleDevices">Visible on all devices</label><br>
+                <input type="radio" id="hideDesktop" name="visibility" value="desktop">
+                <label for="hideDesktop">Hide on desktop</label><br>
+                <input type="radio" id="hideMobile" name="visibility" value="mobile">
+                <label for="hideMobile">Hide on mobile</label>
+
+                <p>Popup Delay</p>
+                <label for="popupDelay" class="explain">Show Popup after X seconds</label>
+                <input type="text" id="popupDelay" style="width: 100%; margin-bottom: 10px;">
+
+                <p>Popup Appearance</p>
+                <input type="radio" id="frequency" name="appearance" value="frequency" checked>
+                <label for="frequency">Show popup with specific frequency...</label><br>
+                <input type="radio" id="pageload" name="appearance" value="pageload">
+                <label for="pageload">Show popup on every page load</label><br>
+
+                <div id="popupFrequencyDiv">
+                    <p>Popup Frequency</p>
+                    <label class="explain" for="popupFrequency">Set -1 to disable popup, 0 to display popup only once, and 1 or more to display popup every n days (for example: 30 = display popup every 30 days)</label>
+                    <input type="text" id="popupFrequency" style="width: 100%; margin-bottom: 10px;">
+                </div>
+            </div>
+            <button type="button" id="saveSettings">Save settings</button>
+        </div>
+        <div class="right">
+            <iframe id="iframe" src="https://www.rabbitseo.com"></iframe>
+            <div class="overlay hidden"></div>
+            <div class="modal hidden">
+                <a href="#" target="_blank" id="modalImageLink">
+                    <img src="https://via.placeholder.com/400x300" alt="Placeholder Image" id="modalImage">
+                </a>
+                <i class="fas fa-fire"></i>
+                <div style="align-content: center; padding: 10px;">
+                    <h2 id="modalHeader">User put a modal here</h2>
+                    <p id="modalText">Up to 15% off for limited time and on selected items. plus free shipping for the first 100 buyers</p>
+                    <button id="modalButton">Get the discount now!</button>
+                </div>
+                <a class="close-button hidden" id="modalCloseButton">X</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function showModal() {
+                $('.overlay, .modal').removeClass('hidden');
+            }
+
+            function hideModal() {
+                $('.overlay, .modal').addClass('hidden');
+            }
+
+            function updateModal() {
+                const headerText = $('#headerText').val();
+                const headerColor = $('#headerColor').val();
+                const mainText = $('#mainText').val();
+                const mainTextColor = $('#mainTextColor').val();
+                const buttonText = $('#buttonText').val();
+                const buttonLink = $('#buttonLink').val();
+                const actionType = $('#actionType').val();
+                const buttonTextColor = $('#buttonTextColor').val();
+                const buttonBgColor = $('#buttonBgColor').val();
+                const addition = $('#addition').val();
+                const position = $('#position').val().replace('_', '-');
+                const file = $('#file')[0].files[0];
+                const popupColor = $('#popupColor').val();
+                const showCloseButton = $('#closeDesign').is(':checked');
+                const imageLink = $('#link').val();
+                const iconColor = $('#iconColor').val();
+
+                let modalWidth = '700px';
+                if (addition === 'none' || position === 'top' || position === 'top-cover') {
+                    modalWidth = '400px';
+                }
+
+                $('.modal').css({
+                    'width': modalWidth,
+                    'background-color': popupColor
+                });
+
+                $('#modalHeader').text(headerText).css('color', headerColor);
+                $('#modalText').text(mainText).css('color', mainTextColor);
+                $('#modalButton').text(buttonText).css({
+                    'color': buttonTextColor,
+                    'background-color': buttonBgColor
+                }).off('click').on('click', function () {
+                    if (actionType === 'new_tab') {
+                        window.open(buttonLink, '_blank');
+                    } else if (actionType === 'same_tab') {
+                        window.location.href = buttonLink;
+                    } else {
+                        hideModal();
+                    }
+                });
+
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#modalImage').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+
+                if (imageLink) {
+                    $('#modalImageLink').attr('href', imageLink).attr('target', '_blank');
+                    $('.modal img').css('cursor', 'pointer');
+                } else {
+                    $('#modalImageLink').removeAttr('href').removeAttr('target');
+                    $('.modal img').css('cursor', 'default');
+                }
+
+                if (showCloseButton) {
+                    $('#modalCloseButton').removeClass('hidden');
+                } else {
+                    $('#modalCloseButton').addClass('hidden');
+                }
+
+                $('.modal').removeClass('top-cover top left-cover right-cover');
+
+                if (addition === 'icon') {
+                    $('.icon-container').show();
+                    $('.position-container').show();
+                    $('.image-container').hide();
+                    $('#modalImageLink').hide();
+                    $('.modal i').css('color', iconColor).show();
+
+                    $('.modal').addClass(position);
+                } else if (addition === 'image_video') {
+                    $('.icon-container').hide();
+                    $('.position-container').show();
+                    $('.image-container').show();
+                    $('#modalImageLink').show();
+                    $('.modal i').hide();
+
+                    $('.modal').addClass(position);
+                } else {
+                    $('.icon-container').hide();
+                    $('.position-container').hide();
+                    $('.image-container').hide();
+                    $('#modalImageLink').hide();
+                    $('.modal i').hide();
+                }
+
+                showModal();
+            }
+
+            $('#saveSettings').click(updateModal);
+
+            $('.overlay').click(function () {
+                if (!$('#closeDesign').is(':checked') || !$('#disableBackdrop').is(':checked')) {
+                    hideModal();
+                }
+            });
+
+            $('#modalCloseButton').click(hideModal);
+
+            $('#closeDesign').change(function () {
+                if (this.checked) {
+                    $('#disableBackdropDiv').show();
+                } else {
+                    $('#disableBackdropDiv').hide();
+                }
+            });
+
+            $("#headerText, #headerColor, #mainText, #mainTextColor, #buttonText, #buttonTextColor, #buttonBgColor, #buttonLink, #actionType, #file, #popupColor, #closeDesign, #position, #link, #addition, #iconColor").change(updateModal);
+
+            function handleVisibilityChange(event) {
+                const selectedValue = event.target.value;
+                if (selectedValue === "device" || selectedValue === "mobile") {
+                    showModal();
+                } else {
+                    hideModal();
+                }
+            }
+
+            function handleFrequencyChange(event) {
+                const selectedValue = event.target.value;
+                if (selectedValue === "frequency") {
+                    $("#popupFrequencyDiv").show();
+                } else {
+                    $("#popupFrequencyDiv").hide();
+                }
+            }
+
+            $('input[name="visibility"]').change(handleVisibilityChange);
+            $('input[name="appearance"]').change(handleFrequencyChange);
+
+            updateModal(); // Initial modal update
+        });
+    </script>
+</body>
+
+</html>
