@@ -1,0 +1,35 @@
+We are seeking a developer who has strong skills with interactive web pages using HTML, CSS, JavaScript, and JQuery.
+
+Key Requirements:
+- JQuery
+- HTML
+- CSS
+
+We will have a small test that should take one hour to see if the freelancer is capable to handle the work, and we can hire the first one who shows the required result.
+Test description:
+Design html like the attached image (we don't care about design here, only the script matters), in the left section show some inputs, and in the right section load a web page according to the inputs, and embed an icon according to user choice in the inputs (color, position etc).
+
+We don't pay for the test, but the freelancer that deliver the test we can hire for the project (and that code will be used there).
+Skills Required
+JavaScript
+Website Design
+CSS
+HTML
+jQuery / Prototype
+
+
+smartarget.online
+ronchuke@gmail.com / 3$w6.cG(8;e8w?z
+
+
+Contact Us - All in one
+Follow Us
+Stories
+Reviews
+FAQ
+Message Bar
+Popup
+Popup Forms
+
+
+https://www.rabbitseo.com
