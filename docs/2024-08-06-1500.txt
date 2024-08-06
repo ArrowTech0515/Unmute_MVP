@@ -1,0 +1,13 @@
+Now what we need to test is like that:
+1. When user submit a widget form (let's say popup) you call this method: createNewWidget('Popup', form.serializeArray(), true) - you should have 2 buttons, Publish / Save Draft (if user click publish you send true)
+2. Then to test it refresh the page and call getWidgetsList() - in the dashboard you should call this method and show user the widgets he submitted before
+3. Add in the dashboard list of widgets 2 buttons - toggle status (from published to not published and call this toggleWidgetStatus), and another button to delete this widget (deleteWidget)
+4. Now the real test, after you see widget in this list, you load this file testGetLeads.html, then in embed.js you fill onLoad() function, you get the same widgets list and you should inject them to user site (testGetLeads.html is your user site, you can't change testGetLeads.html, but you can change embed.js)
+
+
+You should also put all the site preview scripts there, same scripts should be for preview and for real site injection
+
+So just to make sure - you need to change only 2 files for now - getLeads.html and embedGetLeads.js
+
+And invoke before that this url https://rabbitseo.com/addMyIpGuest?app=Get Leads
+
