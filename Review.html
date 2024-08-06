@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .flex {
+            display: flex;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .w-30 {
+            width: 30%;
+        }
+
+        .w-70 {
+            width: 70%;
+        }
+
+        .w-half {
+            width: 50%;
+        }
+
+        .margin-right-10 {
+            margin-right: 10px;
+        }
+
+        .margin-left-10 {
+            margin-left: 10px;
+        }
+
+        .margin-top-10 {
+            margin-top: 10px;
+        }
+
+        .margin-top-20 {
+            margin-top: 20px;
+        }
+
+        .align-content-center {
+            align-content: center;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .text-wrap {
+            text-wrap: wrap;
+        }
+
+        .space-between {
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            font-size: 13px;;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left,
+        .right {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .left {
+            flex: 1;
+            border-right: 1px solid #ccc;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+
+        .right {
+            flex: 2;
+            position: relative;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .section {
+            margin-top: 20px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .explain {
+            color: #777;
+            font-size: 12px;
+        }
+
+        input,
+        select,
+        button {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #6200ea;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3700b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-close {
+            color: rgba(255, 0, 0, 0.5);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .fixed-button {
+            position: absolute;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transform-origin: center;
+        }
+        .rounded {
+            border-radius: 5px;
+        }
+        .square {
+            border-radius: 0px;
+        }
+        .circle {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+        }
+        .tab {
+            border-radius: 5px;
+        }
+
+        .modal {
+            position: absolute;
+            width: 350px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: left;
+            flex-direction: column;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .modal-header .close-button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .modal-content p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .modal-content a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .modal-content a:hover {
+            text-decoration: underline;
+        }
+
+        .questions {
+            margin: 20px 0;
+        }
+
+        .question-item {
+            border-top: 1px solid #ddd;
+            padding: 10px 0;
+            cursor: pointer;
+        }
+
+        .question-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .question-item .question {
+            color: #e60000;
+            font-weight: bold;
+        }
+
+        .question-item .answer {
+            display: none;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .modal-footer {
+            background-color: #800000;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .modal-footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .modal-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div>
+                <p>Your email (Optional)</p>
+                <label for="email">Smartarget will send notifications to this email</label>
+                <input type="text" id="email" style="width: 100%;" value="example@yourdomain.com">
+            </div>
+            <div>
+                <p>Telegram notifications (Optional)</p>
+                <label for="telegram">Smartarget will send notifications to this telegram. You should connect bot below.</label>
+                <a href="https://t.me/smartarget_the_bot" target="_blank">https://t.me/smartarget_the_bot</a>
+                <input type="text" id="telegram" style="width: 100%;" value="@your_telegram">
+            </div>
+
+            <div class="flex" style="margin-top: 20px;">
+                <div class="w-half">
+                    <label class="bold">Color scheme</label><br>
+                    <input type="radio" id="basic" name="colorScheme" value="basic" checked>
+                    <label for="basic">Basic</label>
+                    <input type="radio" id="custom" name="colorScheme" value="custom">
+                    <label for="custom">Custom</label>
+                </div>
+                <div class="w-half" id="basicColorDiv">
+                    <label class="bold">Basic Color</label><br>
+                    <input type="color" id="basicColor" value="#000000" style="width: 50px;">
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Window Content</h3>
+                <div>
+                    <label for="subtitle">Subtitle</label>
+                    <input type="text" id="subtitle" class="w-full" value="Based on {reviewsCount} reviews">
+                </div>
+                <div class="margin-top-10">
+                    <input type="checkbox" id="allowNewReviews" checked>
+                    <label for="allowNewReviews">Allow visitors to leave new reviews</label>
+                </div>
+                <div class="allow-visitors-reviews">
+                    <div class="margin-top-10">
+                        <input type="checkbox" id="allowImageInReview" checked>
+                        <label for="allowImageInReview">Allow visitors to leave an image in a review</label>
+                    </div>
+                    <div class="margin-top-10">
+                        <input type="checkbox" id="requireStarRating" checked>
+                        <label for="requireStarRating">Require visitors to select stars in a review</label>
+                    </div>
+                    <div class="margin-top-10">
+                        <input type="checkbox" id="showPredefinedReviews" checked>
+                        <label for="showPredefinedReviews">Show predefined reviews first</label>
+                    </div>
+                    <div class="flex w-full margin-top-10">
+                        <div class="w-half">
+                            <label for="submitReviewText">Submit Review Button Text</label>
+                            <input type="text" id="submitReviewText" value="Leave review">
+                        </div>
+                        <div class="w-half">
+                            <label for="successText">Success Text</label>
+                            <input type="text" id="successText" value="Thanks for your review!">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section button-section">
+                <h3>Button</h3>
+                <div class="flex">
+                    <div class="w-half">
+                        <label for="buttonType">Button Type</label>
+                        <select id="buttonType" class="w-full">
+                            <option value="rounded">Rounded with text</option>
+                            <option value="square">Square with text</option>
+                            <option value="tab">Tab</option>
+                        </select>
+                    </div>
+                    <div class="w-half">
+                        <label for="buttonText">Button Text</label>
+                        <input type="text" id="buttonText" class="w-full" value="Button Text">
+                    </div>
+                </div>
+
+                <div class="flex w-full margin-top-10">
+                    <div class="w-half">
+                        <label for="buttonPositionDesktop">Button Position - Desktop</label>
+                        <select id="buttonPositionDesktop" class="w-70">
+                            <option value="bottom-right" selected>Bottom-right</option>
+                            <option value="bottom-center">Bottom-center</option>
+                            <option value="bottom-left">Bottom-left</option>
+                            <option value="top-right">Top-right</option>
+                            <option value="top-center">Top-center</option>
+                            <option value="top-left">Top-left</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                    <div class="w-half margin-left-10">
+                        <label for="buttonPositionMobile">Button Position - Mobile</label>
+                        <select id="buttonPositionMobile" class="w-70">
+                            <option value="bottom-right" selected>Bottom-right</option>
+                            <option value="bottom-center">Bottom-center</option>
+                            <option value="bottom-left">Bottom-left</option>
+                            <option value="top-right">Top-right</option>
+                            <option value="top-center">Top-center</option>
+                            <option value="top-left">Top-left</option>
+                            <option value="left">Left</option>
+                            <option value="right">Right</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="button-custom-div">
+                    <div class="flex w-full margin-top-20">
+                        <div class="w-half">
+                            <label for="buttonBackgroundColor">Background Color</label><br>
+                            <input type="color" id="buttonBackgroundColor" class="w-30" value="#47B0D3">
+                        </div>
+                        <div class="w-half">
+                            <label for="buttonTextColor">Text Color</label><br>
+                            <input type="color" id="buttonTextColor" class="w-30" value="#FFFFFF">
+                        </div>
+                    </div>
+                    <div class="flex w-full margin-top-20">
+                        <div class="w-half">
+                            <div class="flex">
+                                <label for="buttonText">Appearance Delay (sec)</label>
+                                <input type="number" id="buttonText" class="w-full" value="0">
+                            </div>
+                        </div>
+                        <div class="w-half">
+                            <input type="checkbox" id="makeButtonSmaller">
+                            <label for="makeButtonSmaller">Make button smaller</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex margin-top-20">
+                    <div class="w-half">
+                        <input type="checkbox" id="waveAnimation">
+                        <label for="waveAnimation">Waves animation</label>
+                    </div>
+                    <div class="w-half">
+                        <input type="checkbox" id="appearAnimation">
+                        <label for="appearAnimation">Appear animation</label>
+                    </div>
+                </div>
+            </div>
+            
+            <h4>Predefined Reviews</h4>
+            
+            <div id="reviewList">
+                <div class="section">
+                    <div class="space-between">
+                        <label class="explain contact-no">#1</label>
+                        <a class="form-close">X</a>
+                    </div>
+                    <div class="flex margin-top-10">
+                        <div class="w-half">
+                            <label class="" for="name_1">Name</label><br>
+                            <input type="text" id="name_1" value="User 1">
+                        </div>
+                        <div class="w-half">
+                            <label class="" for="rating_1">Review Rating</label><br>
+                            <input type="number" id="rating_1" value="5">
+                        </div>
+                    </div>
+                    <div class="flex margin-top-20">
+                        <div class="w-half">
+                            <label class="" for="reviewtxt_1">Review Text</label><br>
+                            <input type="text" id="reviewtxt_1" value="Your website is awesome!">
+                        </div>
+                        <div class="w-half">
+                            <label for="image_1">Image</label><br>
+                            <input type="file" id="image_1" class="w-full">
+                        </div>
+                    </div>
+                </div> 
+                <div class="section">
+                    <div class="space-between">
+                        <label class="explain contact-no">#2</label>
+                        <a class="form-close">X</a>
+                    </div>
+                    <div class="flex margin-top-10">
+                        <div class="w-half">
+                            <label class="" for="name_2">Name</label><br>
+                            <input type="text" id="name_2" value="User 2">
+                        </div>
+                        <div class="w-half">
+                            <label class="" for="rating_2">Review Rating</label><br>
+                            <input type="number" id="rating_2" value="5">
+                        </div>
+                    </div>
+                    <div class="flex margin-top-20">
+                        <div class="w-half">
+                            <label class="" for="reviewtxt_2">Review Text</label><br>
+                            <input type="text" id="reviewtxt_2" value="I am really like your products">
+                        </div>
+                        <div class="w-half">
+                            <label for="image_2">Image</label><br>
+                            <input type="file" id="image_2" class="w-full">
+                        </div>
+                    </div>
+                </div>           
+            </div>
+            <button style="height: 20px; margin-top: 10px;" type="button" id="addReviewItem">Add Item</button><br>
+
+            <div class="section">
+                <h3>Review Form</h3>
+                <div class="flex">
+                    <div class="w-half">
+                        <label for="namePlaceholder">Name Field Placeholder</label><br>
+                        <input type="text" id="namePlaceholder" value="Enter your name">
+                    </div>
+                    <div class="w-half">
+                        <label class="" for="reviewPlaceholder">Review Text Field Placeholder</label><br>
+                        <input type="text" id="reviewPlaceholder" value="Enter your review">
+                    </div>
+                </div>
+            </div>  
+
+            <h3>Additional Review Fields</h3>
+            <p class="explain">This information will be visible only for you.</p>
+
+            <div id="fieldList">
+                <div class="section">
+                    <div class="space-between">
+                        <label class="explain contact-no">#1</label>
+                        <a class="form-close">X</a>
+                    </div>
+                    <div class="flex">
+                        <div class="w-half">
+                            <label>Placeholder</label><br>
+                            <input type="text" id="placeHolder_1" value="Special">
+                        </div>
+                        <div class="w-half">
+                            <label>Name</label><br>
+                            <input type="text" id="contactName_1" value="">
+                        </div>
+                    </div>
+                    <div class="checkbox-container margin-top-20">
+                        <input type="checkbox" id="requireFill_1">
+                        <label for="requireFill_1">Required to Fill</label>
+                    </div>
+                </div>  
+            </div>
+            <button style="height: 20px; margin-top: 10px;" type="button" id="addFieldItem">Add Item</button><br>
+
+            <div class="margin-top-20">
+                <p>How often (in days) customers can leave new review</p>
+                <label class="explain">Set 0 to allow leave review only once for each customer, or another number to allow leave review every X days (for example: 30 = customer can leave review every 30 days)</label><br>
+                <input type="number" id="leaveDays" value="1">
+            </div>
+
+            <button class="margin-top-20" style="height: 30px;" type="button" id="saveSettings">Save settings</button>
+        </div>
+        <div class="right">
+            <iframe id="iframe" src="https://www.rabbitseo.com"></iframe>
+            <div class="fixed-button" id="questionButton">
+                <i class="fas fa-question"></i>
+                <span class="fixed-button-text">Any questions? Check our FAQ</span>
+            </div>
+            <div class="modal hidden">
+                <div class="modal-header">
+                    <div class="w-full space-between">
+                        <h2>Questions? 🤔</h2>
+                        <button class="close-button">&times;</button>
+                    </div>
+                    <p>Check info below or send us a question to</p>
+                </div>
+                <div class="modal-content">
+                    <div class="questions">
+                        <div class="question-item">
+                            <div class="question">Can I refund products?</div>
+                            <div class="answer">Yes, you can refund products within 30 days of purchase.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p>For any question call us to <a href="tel:+89997774652" style="text-decoration: none;">+89997774652</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {         
+            function showModal() {
+                $('.modal').show();
+            }
+
+            function hideModal() {
+                $('.modal').hide();
+            }
+
+            function updateModal() {
+                const showHeader = $('#showHeader').is(':checked');
+                const headerTitle = $('#headerTitle').val();
+                const headerSubtitle = $('#headerSubtitle').val();
+                const headerBackgroundColor = $('#headerBackgroundColor').val();
+                const headerTextColor = $('#headerTextColor').val();
+
+                const questionsTextColor = $('#questionsTextColor').val();
+                const answersTextColor = $('#answersTextColor').val();
+                const questionLinkColor = $('#questionLinkColor').val();
+
+                const showFooter = $('#showFooter').is(':checked');
+                const footerText = $('#footerText').val();
+                const footerBackgroundColor = $('#footerBackgroundColor').val();
+                const footerTextColor = $('#footerTextColor').val();
+                const linkColor = $('#linkColor').val();
+
+                if (showHeader) {
+                    $('.modal-header').css({
+                        'color': headerTextColor,
+                        'background-color': headerBackgroundColor
+                    });
+                    $('.modal-header h2').text(headerTitle);
+                    $('.modal-header p').text(headerSubtitle);
+
+                    $('.show-header-div').show();
+                    $('.modal-header').show();
+                }
+                else {
+                    $('.show-header-div').hide();
+                    $('.modal-header').hide();
+                }
+
+                if (showFooter) {
+                    $('.modal-footer').css({
+                        'color': footerTextColor,
+                        'background-color': footerBackgroundColor
+                    });
+                    $('.modal-footer a').css('color', linkColor);
+                    $('.modal-footer p').text(footerText);
+
+                    $('.show-footer-div').show();
+                    $('.modal-footer').show();
+                }
+                else {
+                    $('.show-footer-div').hide();
+                    $('.modal-footer').hide();
+                }
+
+                // Insert input text elements into #modalInputList
+                const sectionsData = getSectionValues();
+                const modalList = $('.questions');
+                modalList.empty(); // Clear previous inputs
+
+                sectionsData.forEach((section, index) => {
+                    const inputElement = $(`
+                        <div class="question-item">
+                            <div class="question">${section.question}</div>
+                            <div class="answer">${section.answer} <br><a href="${section.link}" target="_blank">${section.link}</a> </div>
+                        </div>
+                    `);
+                    modalList.append(inputElement);
+                });
+
+                $('.modal-content .question').css('color', questionsTextColor);
+                $('.modal-content .answer').css('color', answersTextColor);
+                $('.modal-content a').css('color', questionLinkColor);
+            }
+
+            $('.questions').on('click', '.question-item', function() {
+                $(this).find('.answer').toggle();
+            });
+
+            $('.close-button').on('click', function () {
+                hideModal();
+            });
+
+            function updatePosition() {
+                let type = $('#buttonPositionDesktop').val();
+                let btnElement = $('#questionButton');
+                let modalElement = $('.modal');
+                switch (type) {
+                    case 'bottom-right':
+                        btnElement.css({
+                            'bottom': '20px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'top': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        modalElement.css({
+                            'bottom': '80px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'top': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        break;
+                    case 'bottom-center':
+                        btnElement.css({
+                            'bottom': '20px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'top': 'auto',
+                            'transform': 'translate(-50%, 0%)'
+                        });
+                        modalElement.css({
+                            'bottom': '80px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'top': 'auto',
+                            'transform': 'translate(-50%, 0%)'
+                        });
+                        break;
+                    case 'bottom-left':
+                        btnElement.css({
+                            'bottom': '20px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'top': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        modalElement.css({
+                            'bottom': '80px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'top': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        break;
+                    case 'top-right':
+                        btnElement.css({
+                            'top': '20px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        modalElement.css({
+                            'top': '60px',
+                            'right': '20px',
+                            'left': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        break;
+                    case 'top-center':
+                        btnElement.css({
+                            'top': '20px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(-50%, 0%)'
+                        });
+                        modalElement.css({
+                            'top': '60px',
+                            'left': '50%',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(-50%, 0%)'
+                        });
+                        break;
+                    case 'top-left':
+                        btnElement.css({
+                            'top': '20px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        modalElement.css({
+                            'top': '60px',
+                            'left': '20px',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, 0%)'
+                        });
+                        break;
+                    case 'left':
+                        btnElement.css({
+                            'top': '50%',
+                            'left': '20px',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, -50%)'
+                        });
+                        modalElement.css({
+                            'top': '50%',
+                            'left': '60px',
+                            'right': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, -50%)'
+                        });
+                        break;
+                    case 'right':
+                        btnElement.css({
+                            'top': '50%',
+                            'right': '20px',
+                            'left': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, -50%)'
+                        });
+                        modalElement.css({
+                            'top': '50%',
+                            'right': '60px',
+                            'left': 'auto',
+                            'bottom': 'auto',
+                            'transform': 'translate(0%, -50%)'
+                        });
+                        break;
+                }
+            }
+
+            function updateButton() {
+                updatePosition();
+
+                var btnElement = $('#questionButton');
+                var btnText = $('.fixed-button-text');
+
+                let buttonType = $('#buttonType').val();
+                let buttonText = $('#buttonText').val();
+                let bgColor = $('#buttonBackgroundColor').val();
+                let textColor = $('#buttonTextColor').val();
+                btnElement.css({ 'background-color': bgColor, 'color': textColor });
+                btnText.text(buttonText);
+                if (buttonType === 'circle') {
+                    btnText.hide();
+                }
+                else {
+                    btnText.show();
+                }
+                btnElement.removeClass('rounded square circle tab').addClass(buttonType);
+            }
+            
+            updateButton();
+
+            $('#questionButton').on('click', function () {
+                updateModal();
+                $('.modal').toggle();
+            });
+
+            let questionList = $('#questionList');
+
+            function refreshContactNumbers() {
+                questionList.find('.section').each(function(index) {
+                    let sectionNumber = index + 1;
+                    $(this).find('.contact-no').text(`#${sectionNumber}`);
+                    $(this).find('input, label').each(function() {
+                        let id = $(this).attr('id') || '';
+                        if (id) {
+                            let newId = id.split('_')[0] + '_' + sectionNumber;
+                            $(this).attr('id', newId);
+                            if ($(this).is('label')) {
+                                $(this).attr('for', newId);
+                            }
+                        }
+                    });
+                });
+                updateModal();
+            }
+
+            function getSectionValues() {
+                let sectionsData = [];
+                questionList.find('.section').each(function() {
+                    let section = $(this);
+                    let question = section.find('input[id^="question_"]').val();
+                    let answer = section.find('input[id^="answer_"]').val();
+                    let link = section.find('input[id^="link_"]').val();
+                    sectionsData.push({ question, answer, link });
+                });
+                return sectionsData;
+            }
+
+            $('#addItem').on('click', function() {
+                let sectionCount = questionList.find('.section').length + 1;
+
+                let newSection = $(`
+                    <div class="section">
+                        <div class="space-between">
+                            <label class="explain contact-no">#${sectionCount}</label>
+                            <a class="form-close">X</a>
+                        </div>
+                        <div class="flex margin-top-10">
+                            <label class="margin-right-10" for="question_${sectionCount}">Question</label><br>
+                            <input type="text" class="w-full" id="question_${sectionCount}" value="">
+                        </div>
+                        <div class="flex margin-top-10">
+                            <label class="margin-right-10" for="answer_${sectionCount}">Answer</label><br>
+                            <input type="text" class="w-full" id="answer_${sectionCount}" value="">
+                        </div>
+                        <div class="flex margin-top-10">
+                            <label class="margin-right-10" for="link_${sectionCount}">Link</label><br>
+                            <input type="text" class="w-full" id="link_${sectionCount}" value="">
+                        </div>
+                    </div>    
+                `);
+
+                questionList.append(newSection);
+
+                newSection.find('.form-close').on('click', function() {
+                    $(this).closest('.section').remove();
+                    refreshContactNumbers();
+                });
+
+                newSection.find('input').change(updateModal);
+
+                updateModal();
+            });
+
+            questionList.on('click', '.form-close', function() {
+                $(this).closest('.section').remove();
+                refreshContactNumbers();
+            });
+                
+            $(".button-section input, .button-section select").change(updateButton);
+            $(".header-section input, #questionList input, .questions-section input, .footer-section input, #rightToLeft, #openQuestionSeparateBlock").change(updateModal);
+            
+            $('#allowNewReviews').change(function() {
+                if (this.checked) {
+                    $('.allow-visitors-reviews').show();
+                }
+                else {
+                    $('.allow-visitors-reviews').hide();
+                }
+            });
+
+            function handleColorChange(event) {
+                const selectedValue = event.target.value;
+                if (selectedValue === "basic") {
+                    $(".button-custom-div").hide();
+                    $('#basicColorDiv').show();
+                } else {
+                    $(".button-custom-div").show();
+                    $('#basicColorDiv').hide();
+                }
+                updateModal();
+            }
+            
+            $('input[name="colorScheme"]').change(handleColorChange);
+
+            // $('#saveSettings').click();
+        });
+    </script>
+</body>
+
+</html>
