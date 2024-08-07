@@ -11,3 +11,43 @@ So just to make sure - you need to change only 2 files for now - getLeads.html a
 
 And invoke before that this url https://rabbitseo.com/addMyIpGuest?app=Get Leads
 
+
+It works fine now, great.
+
+Few comments:
+1. Need to divide the scripts into 2 files - inject widgets to page html should be in embedGetLeads.js (which will be loaded into user site), scripts that are related only to GetLeads user interface should be in getLeads.js. Please make sure you understand the difference? If not, I can try to explain more.
+2. All features should be working there? I tried 'Waves' or 'Shake' for example but they didn't work, also doesn't open the chat.
+3. Apply the changes using onChange event, so user see immediately when he is changing.
+4. Use more animations and slide, for example when changing the location from right to left (if not too complicated).
+5. Most important now is to make sure we have a full cycle of one simple widget, full cycle means user customize it, then click Submit and you call createNewWidget, and you also show user widgets using getWidgetsList function, and then inject to real user site in testGetLeads.html (shouldn't change this file, only embedGetLeads.js)
+
+Good job overall, let me know if any questions.
+
+
+1. Need to divide the scripts into 2 files - inject widgets to page html should be in embedGetLeads.js (which will be loaded into user site), scripts that are related only to GetLeads user interface should be in getLeads.js. Please make sure you understand the difference? If not, I can try to explain more.
+I think I understood, after I update check again pls.
+2. All features should be working there? I tried 'Waves' or 'Shake' for example but they didn't work, also doesn't open the chat.
+The input variable is already declared in js.
+But for the effect is only css stuff.
+When the design is ready I will have to redo that I think - using bootstrap or any other css framework maybe.
+So I didn't do that. If it is necessary I will do it.
+3. Apply the changes using onChange event, so user see immediately when he is changing.
+okay, for every input and effects you mean. anyway message bar or contact us.html?
+4. Use more animations and slide, for example when changing the location from right to left (if not too complicated).
+ok.
+5. Most important now is to make sure we have a full cycle of one simple widget, full cycle means user customize it, then click Submit and you call createNewWidget, and you also show user widgets using getWidgetsList function, and then inject to real user site in testGetLeads.html (shouldn't change this file, only embedGetLeads.js)
+okay, I will ask you if I have any questions.
+
+Actually I was composing other pages. and it is almost done. only 1 page left.
+After perfect done of this one simple widget, everything will be done very soon.
+
+
+Ok, thanks for the clarification. 
+1. Fine, waiting to see.
+2. I'm not sure in the design there will be waves or shaker, you can add the css, but lower priority compare to other items.
+3. In all widgets, so user can see in site preview when they can something.
+4. Also this one is low priority.
+5. Pull from git again, when finish the cycle you can see also method in widgets.js getWidgetsReport just to prepare some chart until ready. If there is no data, let me know widgetId and i will put some data.
+
+Thanks.
+
