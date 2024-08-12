@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .flex {
+            display: flex;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .w-30 {
+            width: 30%;
+        }
+
+        .w-70 {
+            width: 70%;
+        }
+
+        .w-half {
+            width: 50%;
+        }
+
+        .margin-right-10 {
+            margin-right: 10px;
+        }
+
+        .margin-left-10 {
+            margin-left: 10px;
+        }
+
+        .margin-top-10 {
+            margin-top: 10px;
+        }
+
+        .margin-top-20 {
+            margin-top: 20px;
+        }
+
+        .align-content-center {
+            align-content: center;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .text-wrap {
+            text-wrap: wrap;
+        }
+
+        .space-between {
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+        }
+
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            font-size: 13px;;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left,
+        .right {
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .left {
+            flex: 1;
+            border-right: 1px solid #ccc;
+            background-color: #f9f9f9;
+            overflow-y: auto;
+        }
+
+        .right {
+            flex: 2;
+            position: relative;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .section {
+            margin-top: 20px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .explain {
+            color: #777;
+            font-size: 12px;
+        }
+
+        input,
+        select,
+        button {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #6200ea;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3700b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .form-close {
+            color: rgba(255, 0, 0, 0.5);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .fixed-button {
+            position: absolute;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transform-origin: center;
+        }
+        .rounded {
+            border-radius: 5px;
+        }
+        .square {
+            border-radius: 0px;
+        }
+        .circle {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+        }
+        .tab {
+            border-radius: 5px;
+        }
+
+        .story-group {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        .story {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .story img {
+            width: 100px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .story-header h4 {
+            margin: 0;
+        }
+
+        .story-header .form-close {
+            color: rgba(255, 0, 0, 0.5);
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .add-story-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #6200ea;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .add-story-btn:hover {
+            background-color: #3700b3;
+        }
+
+        .inside-page-top {
+            position: unset;
+            width: 100%;
+        }
+
+        .over-page-top {
+            position: absolute;
+            width: fit-content;
+            top: 0;
+        }
+
+        .over-page-bottom {
+            position: absolute;
+            width: fit-content;
+            bottom: 0;
+        }
+
+        .hide-on-device {
+            display: none;
+        }
+
+        .fixed-container {
+            display: flex; 
+            justify-content: center;
+        }
+
+        .fixed-bar {
+            background-color: #d9534f;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .over-page-top.fixed-bar.hidden {
+            transform: translateY(-100%);
+        }
+        .over-page-bottom.fixed-bar.hidden {
+            transform: translateY(100%);
+        }
+
+        .story-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .story-div {
+            text-align: center;
+            margin: 0 10px;
+        }
+
+        .story-div img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border: 3px solid #fff;
+        }
+
+        .hide-button {
+            position: fixed;
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hide-button:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="section theme-section">
+                <h3>Theme</h3>
+                <div class="flex w-full margin-top-10">
+                    <div class="w-half">
+                        <label for="desktopPosition">Desktop Position</label>
+                        <select id="desktopPosition" class="w-full">
+                            <option value="inside-page-top">Top (inside the page)</option>
+                            <option value="over-page-top">Top (over the page)</option>
+                            <option value="over-page-bottom">Bottom (over the page)</option>
+                            <option value="hide-on-device">Hide on desktop</option>
+                        </select>
+                    </div>
+                    <div class="w-half margin-left-10">
+                        <label for="mobilePosition">Mobile Position</label>
+                        <select id="mobilePosition" class="w-full">
+                            <option value="inside-page-top">Top (inside the page)</option>
+                            <option value="over-page-top">Top (over the page)</option>
+                            <option value="over-page-bottom">Bottom (over the page)</option>
+                            <option value="hide-on-device">Hide on mobile</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex w-full margin-top-20">
+                    <div class="w-half">
+                        <label for="backgroundColor">Background Color</label><br>
+                        <input type="color" id="backgroundColor" class="w-30" value="#ff0000">
+                    </div>
+                    <div class="w-half margin-left-10">
+                        <label for="titlesColor">Stories Titles Color</label><br>
+                        <input type="color" id="titlesColor" class="w-30" value="#ffffff">
+                    </div>
+                </div>
+                <div class="margin-top-20">
+                    <input type="checkbox" id="appearAnimation" checked>
+                    <label for="appearAnimation">Appear Animation</label>
+                </div>
+                <div class="margin-top-10">
+                    <input type="checkbox" id="glassEffect" checked>
+                    <label for="glassEffect">Glass Effect</label>
+                </div>
+                <div class="margin-top-10">
+                    <input type="checkbox" id="showHideButton" checked>
+                    <label for="showHideButton">Show hide button</label>
+                </div>
+            </div>
+            <h2>Stories Groups</h2>
+            <p class="explain">Each story group contains several stories</p>
+            <div class="group-list">
+                <div class="section group-section">
+                    <div class="group-input">
+                        <div class="flex space-between">
+                            <div>
+                                <label for="storyGroupTitle_1">Story Group Title</label>
+                                <input type="text" id="storyGroupTitle_1" value="Hot News">
+                            </div>
+                            <button class="form-close group-close">✖</button>
+                        </div>
+                        <div class="margin-top-10">
+                            <label>Story Cover Image</label><br>
+                            <input type="file" id="coverImage_1" class="w-full">
+                        </div>
+                        <div class="margin-top-10">
+                            <input type="checkbox" id="addSchedule_1" checked>
+                            <label for="addSchedule_1">Add Schedule</label>
+                        </div>
+                        <div class="flex w-full margin-top-10">
+                            <div class="w-half margin-right-10">
+                                <label for="startDate_1">Start Date</label>
+                                <input type="datetime-local" id="startDate_1" class="w-full" value="2024-08-03T06:50">
+                            </div>
+                            <div class="w-half">
+                                <label for="endDate_1">End Date</label>
+                                <input type="datetime-local" id="endDate_1" class="w-full" value="2024-08-30T10:54">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Stories</h3>
+                    <p class="explain">Each story presented on one screen</p>
+                    <div class="story-group" group="1">
+                        <div class="story-input">
+                            <div class="story-header">
+                                <h4>Story Image or Video (mp4)</h4>
+                                <button class="form-close story-close">✖</button>
+                            </div>
+                            <div class="margin-top-10">
+                                <input type="file" id="storyImage_1_1" class="w-full">
+                            </div>
+                            <div class="margin-top-10">
+                                <label for="duration">Duration (seconds)</label>
+                                <input type="number" id="duration_1_1" value="1">
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Text Content</h4>
+                                <div>
+                                    <input type="checkbox" id="showTextContent_1_1" checked>
+                                    <label for="showTextContent_1_1">Show Text Content</label>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="header_1_1">Header</label>
+                                        <input type="text" id="header_1_1" class="w-full" value="Header">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="text_1_1">Text</label>
+                                        <input type="text" id="text_1_1" class="w-full" value="Text">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="bgColor_1_1">Background Color</label><br>
+                                        <input type="color" id="bgColor_1_1" class="w-30" value="#ff0000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="textColor_1_1">Text Color</label><br>
+                                        <input type="color" id="textColor_1_1" class="w-30" value="#ffff00">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Action</h4>
+                                <div class="flex">
+                                    <div class="w-half">
+                                        <input type="checkbox" id="showActionButton_1_1" checked>
+                                        <label for="showActionButton_1_1">Show Action Button</label>
+                                    </div>
+                                    <div class="w-half">
+                                        <input type="checkbox" id="openInNewTab_1_1" checked>
+                                        <label for="openInNewTab_1_1">Open in New Tab</label>
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionText_1_1">Text</label>
+                                        <input type="text" id="actionText_1_1" class="w-full" value="Buy">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="link_1_1">Link</label>
+                                        <input type="url" id="link_1_1" class="w-full" value="https://example.com">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionBgColor_1_1">Background Color</label><br>
+                                        <input type="color" id="actionBgColor_1_1" class="w-30" value="#000000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="actionTextColor_1_1">Text Color</label><br>
+                                        <input type="color" id="actionTextColor_1_1" class="w-30" value="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="story-input">
+                            <div class="story-header">
+                                <h4>Story Image or Video (mp4)</h4>
+                                <button class="form-close story-close">✖</button>
+                            </div>
+                            <div class="margin-top-10">
+                                <input type="file" id="image_1_2" class="w-full">
+                            </div>
+                            <div class="margin-top-10">
+                                <label for="duration_1_2">Duration (seconds)</label>
+                                <input type="number" id="duration_1_2" value="4">
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Text Content</h4>
+                                <div>
+                                    <input type="checkbox" id="showTextContent_1_2" checked>
+                                    <label for="showTextContent_1_2">Show Text Content</label>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="header_1_2">Header</label>
+                                        <input type="text" id="header_1_2" class="w-full" value="Looking forward...">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="text_1_2">Text</label>
+                                        <input type="text" id="text_1_2" class="w-full" value="We made the best website! Presale is starting soon, see you later!">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="bgColor_1_2">Background Color</label><br>
+                                        <input type="color" id="bgColor_1_2" class="w-30" value="#000000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="textColor_1_2">Text Color</label><br>
+                                        <input type="color" id="textColor_1_2" class="w-30" value="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Action</h4>
+                                <div class="flex">
+                                    <div class="w-half">
+                                        <input type="checkbox" id="showActionButton_1_2" checked>
+                                        <label for="showActionButton_1_2">Show Action Button</label>
+                                    </div>
+                                    <div class="w-half">
+                                        <input type="checkbox" id="openInNewTab_1_2" checked>
+                                        <label for="openInNewTab_1_2">Open in New Tab</label>
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionText_1_2">Text</label>
+                                        <input type="text" id="actionText_1_2" class="w-full" value="">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="link_1_2">Link</label>
+                                        <input type="url" id="link_1_2" class="w-full" value="">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionBgColor_1_2">Background Color</label><br>
+                                        <input type="color" id="actionBgColor_1_2" class="w-30" value="#ffffff">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="actionTextColor_1_2">Text Color</label><br>
+                                        <input type="color" id="actionTextColor_1_2" class="w-30" value="#000000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="story-input">
+                            <div class="story-header">
+                                <h4>Story Image or Video (mp4)</h4>
+                                <button class="form-close story-close">✖</button>
+                            </div>
+                            <div class="margin-top-10">
+                                <input type="file" id="image_1_3" class="w-full">
+                            </div>
+                            <div class="margin-top-10">
+                                <label for="duration_1_3">Duration (seconds)</label>
+                                <input type="number" id="duration_1_3" value="5">
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Text Content</h4>
+                                <div>
+                                    <input type="checkbox" id="showTextContent_1_3">
+                                    <label for="showTextContent_1_3">Show Text Content</label>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="header_1_3">Header</label>
+                                        <input type="text" id="header_1_3" class="w-full" value="">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="text_1_3">Text</label>
+                                        <input type="text" id="text_1_3" class="w-full" value="">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="bgColor_1_3">Background Color</label><br>
+                                        <input type="color" id="bgColor_1_3" class="w-30" value="#000000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="textColor_1_3">Text Color</label><br>
+                                        <input type="color" id="textColor_1_3" class="w-30" value="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Action</h4>
+                                <div class="flex">
+                                    <div class="w-half">
+                                        <input type="checkbox" id="showActionButton_1_3" checked>
+                                        <label for="showActionButton_1_3">Show Action Button</label>
+                                    </div>
+                                    <div class="w-half">
+                                        <input type="checkbox" id="openInNewTab_1_3" checked>
+                                        <label for="openInNewTab_1_3">Open in New Tab</label>
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionText_1_3">Text</label>
+                                        <input type="text" id="actionText_1_3" class="w-full" value="">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="link_1_3">Link</label>
+                                        <input type="url" id="link_1_3" class="w-full" value="">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionBgColor_1_3">Background Color</label><br>
+                                        <input type="color" id="actionBgColor_1_3" class="w-30" value="#ffffff">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="actionTextColor_1_3">Text Color</label><br>
+                                        <input type="color" id="actionTextColor_1_3" class="w-30" value="#000000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for more stories -->
+                    <button class="add-story-btn">Add Story</button>
+                </div>
+                <div class="section group-section">
+                    <div class="group-input">
+                        <div class="flex space-between">
+                            <div>
+                                <label for="storyGroupTitle_2">Story Group Title</label>
+                                <input type="text" id="storyGroupTitle_2" value="Big Sales">
+                            </div>
+                            <button class="form-close group-close">✖</button>
+                        </div>
+                        <div class="margin-top-10">
+                            <label>Story Cover Image</label><br>
+                            <input type="file" id="coverImage_2" class="w-full">
+                        </div>
+                        <div class="margin-top-10">
+                            <input type="checkbox" id="addSchedule_2" checked>
+                            <label for="addSchedule_2">Add Schedule</label>
+                        </div>
+                        <div class="flex w-full margin-top-10">
+                            <div class="w-half margin-right-10">
+                                <label for="startDate_2">Start Date</label>
+                                <input type="datetime-local" id="startDate_2" class="w-full" value="2024-08-03T06:50">
+                            </div>
+                            <div class="w-half">
+                                <label for="endDate_2">End Date</label>
+                                <input type="datetime-local" id="endDate_2" class="w-full" value="2024-08-30T10:54">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Stories</h3>
+                    <p class="explain">Each story presented on one screen</p>
+                    <div class="story-group" group="2">
+                        <div class="story-input">
+                            <div class="story-header">
+                                <h4>Story Image or Video (mp4)</h4>
+                                <button class="form-close story-close">✖</button>
+                            </div>
+                            <div class="margin-top-10">
+                                <input type="file" id="storyImage_2_1" class="w-full">
+                            </div>
+                            <div class="margin-top-10">
+                                <label for="duration">Duration (seconds)</label>
+                                <input type="number" id="duration_2_1" value="1">
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Text Content</h4>
+                                <div>
+                                    <input type="checkbox" id="showTextContent_2_1" checked>
+                                    <label for="showTextContent_2_1">Show Text Content</label>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="header_2_1">Header</label>
+                                        <input type="text" id="header_2_1" class="w-full" value="Header">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="text_2_1">Text</label>
+                                        <input type="text" id="text_2_1" class="w-full" value="Text">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="bgColor_2_1">Background Color</label><br>
+                                        <input type="color" id="bgColor_2_1" class="w-30" value="#ff0000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="textColor_2_1">Text Color</label><br>
+                                        <input type="color" id="textColor_2_1" class="w-30" value="#ffff00">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Action</h4>
+                                <div class="flex">
+                                    <div class="w-half">
+                                        <input type="checkbox" id="showActionButton_2_1" checked>
+                                        <label for="showActionButton_2_1">Show Action Button</label>
+                                    </div>
+                                    <div class="w-half">
+                                        <input type="checkbox" id="openInNewTab_2_1" checked>
+                                        <label for="openInNewTab_2_1">Open in New Tab</label>
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionText_2_1">Text</label>
+                                        <input type="text" id="actionText_2_1" class="w-full" value="Buy">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="link_2_1">Link</label>
+                                        <input type="url" id="link_2_1" class="w-full" value="https://example.com">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionBgColor_2_1">Background Color</label><br>
+                                        <input type="color" id="actionBgColor_2_1" class="w-30" value="#000000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="actionTextColor_2_1">Text Color</label><br>
+                                        <input type="color" id="actionTextColor_2_1" class="w-30" value="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="story-input">
+                            <div class="story-header">
+                                <h4>Story Image or Video (mp4)</h4>
+                                <button class="form-close story-close">✖</button>
+                            </div>
+                            <div class="margin-top-10">
+                                <input type="file" id="image_2_2" class="w-full">
+                            </div>
+                            <div class="margin-top-10">
+                                <label for="duration_2_2">Duration (seconds)</label>
+                                <input type="number" id="duration_2_2" value="4">
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Text Content</h4>
+                                <div>
+                                    <input type="checkbox" id="showTextContent_2_2" checked>
+                                    <label for="showTextContent_2_2">Show Text Content</label>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="header_2_2">Header</label>
+                                        <input type="text" id="header_2_2" class="w-full" value="Looking forward...">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="text_2_2">Text</label>
+                                        <input type="text" id="text_2_2" class="w-full" value="We made the best website! Presale is starting soon, see you later!">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="bgColor_2_2">Background Color</label><br>
+                                        <input type="color" id="bgColor_2_2" class="w-30" value="#000000">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="textColor_2_2">Text Color</label><br>
+                                        <input type="color" id="textColor_2_2" class="w-30" value="#ffffff">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top-10">
+                                <h4>Action</h4>
+                                <div class="flex">
+                                    <div class="w-half">
+                                        <input type="checkbox" id="showActionButton_2_2" checked>
+                                        <label for="showActionButton_2_2">Show Action Button</label>
+                                    </div>
+                                    <div class="w-half">
+                                        <input type="checkbox" id="openInNewTab_2_2" checked>
+                                        <label for="openInNewTab_2_2">Open in New Tab</label>
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionText_2_2">Text</label>
+                                        <input type="text" id="actionText_2_2" class="w-full" value="">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="link_2_2">Link</label>
+                                        <input type="url" id="link_2_2" class="w-full" value="">
+                                    </div>
+                                </div>
+                                <div class="flex w-full margin-top-10">
+                                    <div class="w-half margin-right-10">
+                                        <label for="actionBgColor_2_2">Background Color</label><br>
+                                        <input type="color" id="actionBgColor_2_2" class="w-30" value="#ffffff">
+                                    </div>
+                                    <div class="w-half">
+                                        <label for="actionTextColor_2_2">Text Color</label><br>
+                                        <input type="color" id="actionTextColor_2_2" class="w-30" value="#000000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat for more stories -->
+                    <button class="add-story-btn">Add Story</button>
+                </div>
+                <div class="section group-section">
+                    <div class="group-input">
+                        <div class="flex space-between">
+                            <div>
+                                <label for="storyGroupTitle_3">Story Group Title</label>
+                                <input type="text" id="storyGroupTitle_3" value="">
+                            </div>
+                            <button class="form-close group-close">✖</button>
+                        </div>
+                        <div class="margin-top-10">
+                            <label>Story Cover Image</label><br>
+                            <input type="file" id="coverImage_3" class="w-full">
+                        </div>
+                        <div class="margin-top-10">
+                            <input type="checkbox" id="addSchedule_3" checked>
+                            <label for="addSchedule_3">Add Schedule</label>
+                        </div>
+                        <div class="flex w-full margin-top-10">
+                            <div class="w-half margin-right-10">
+                                <label for="startDate_3">Start Date</label>
+                                <input type="datetime-local" id="startDate_3" class="w-full" value="2024-08-03T06:50">
+                            </div>
+                            <div class="w-half">
+                                <label for="endDate_3">End Date</label>
+                                <input type="datetime-local" id="endDate_3" class="w-full" value="2024-08-30T10:54">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Stories</h3>
+                    <p class="explain">Each story presented on one screen</p>
+                    <div class="story-group" group="3">
+                        No items.
+                    </div>
+                    <!-- Repeat for more stories -->
+                    <button class="add-story-btn">Add Story</button>
+                </div>
+            </div>
+            <button style="height: 20px; margin-top: 10px;" type="button" id="addGroup">Add Group</button><br>
+
+            <button class="margin-top-20" style="height: 30px;" type="button" id="saveSettings">Save settings</button>
+        </div>
+        <div class="right">
+            <div class="fixed-container">
+                <div class="fixed-bar">
+                    <div class="story-container">
+                        <div class="story-div" group=1>
+                            <img src="https://via.placeholder.com/60" alt="Hot News">
+                            <div>Hot News</div>
+                        </div>
+                        <div class="story-div" group=2>
+                            <img src="https://via.placeholder.com/60" alt="Big Sales">
+                            <div>Big Sales</div>
+                        </div>
+                        <div class="story-div" group=3>
+                            <img src="https://via.placeholder.com/60" alt="Our Sho">
+                            <div>Our Shop</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="hide-button">&#x25B2;</button>
+            </div>
+
+            <iframe id="iframe" src="https://www.rabbitseo.com"></iframe>
+
+            <div class="modal hidden">
+                <div class="modal-header">
+                    <div class="w-full space-between">
+                        <h2>Questions? 🤔</h2>
+                        <button class="close-button">&times;</button>
+                    </div>
+                    <p>Check info below or send us a question to</p>
+                </div>
+                <div class="modal-content">
+                    <div class="questions">
+                        <div class="question-item">
+                            <div class="question">Can I refund products?</div>
+                            <div class="answer">Yes, you can refund products within 30 days of purchase.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p>For any question call us to <a href="tel:+89997774652" style="text-decoration: none;">+89997774652</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {     
+            // ----------------------- Story Modal Operate ------------------------ //
+            function showStoryModal(groupNo) {
+                let groupStoryList = getGroupValues(true);
+                console.log(groupStoryList);
+            }
+
+            function hideStoryModal() {
+                
+            }
+
+            $('.story-container').on('click', 'img', function() {
+                let groupNo = $(this).closest('.story-div').attr('group');
+                showStoryModal(groupNo);
+            });
+
+            // ----------------------- Group & Story List ------------------------ //
+            let groupList = $('.group-list');
+            
+            $('.group-list').on('click', '.add-story-btn', function() {
+                let storyList = $(this).closest('.group-section').find('.story-group');
+                let groupNo = storyList.attr('group');
+                let sectionCount = storyList.find('.story-input').length + 1;
+
+                let newSection = $(`
+                    <div class="story-input">
+                        <div class="story-header">
+                            <h4>Story Image or Video (mp4)</h4>
+                            <button class="form-close story-close">✖</button>
+                        </div>
+                        <div class="margin-top-10">
+                            <input type="file" id="image_${groupNo}_${sectionCount}" class="w-full">
+                        </div>
+                        <div class="margin-top-10">
+                            <label for="duration_${groupNo}_${sectionCount}">Duration (seconds)</label>
+                            <input type="number" id="duration_${groupNo}_${sectionCount}" value="5">
+                        </div>
+                        <div class="margin-top-10">
+                            <h4>Text Content</h4>
+                            <div>
+                                <input type="checkbox" id="showTextContent_${groupNo}_${sectionCount}">
+                                <label for="showTextContent_${groupNo}_${sectionCount}">Show Text Content</label>
+                            </div>
+                            <div class="flex w-full margin-top-10">
+                                <div class="w-half margin-right-10">
+                                    <label for="header_${groupNo}_${sectionCount}">Header</label>
+                                    <input type="text" id="header_${groupNo}_${sectionCount}" class="w-full" value="">
+                                </div>
+                                <div class="w-half">
+                                    <label for="text_${groupNo}_${sectionCount}">Text</label>
+                                    <input type="text" id="text_${groupNo}_${sectionCount}" class="w-full" value="">
+                                </div>
+                            </div>
+                            <div class="flex w-full margin-top-10">
+                                <div class="w-half margin-right-10">
+                                    <label for="bgColor_${groupNo}_${sectionCount}">Background Color</label><br>
+                                    <input type="color" id="bgColor_${groupNo}_${sectionCount}" class="w-30" value="#000000">
+                                </div>
+                                <div class="w-half">
+                                    <label for="textColor_${groupNo}_${sectionCount}">Text Color</label><br>
+                                    <input type="color" id="textColor_${groupNo}_${sectionCount}" class="w-30" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margin-top-10">
+                            <h4>Action</h4>
+                            <div class="flex">
+                                <div class="w-half">
+                                    <input type="checkbox" id="showActionButton_${groupNo}_${sectionCount}" checked>
+                                    <label for="showActionButton_${groupNo}_${sectionCount}">Show Action Button</label>
+                                </div>
+                                <div class="w-half">
+                                    <input type="checkbox" id="openInNewTab_${groupNo}_${sectionCount}" checked>
+                                    <label for="openInNewTab_${groupNo}_${sectionCount}">Open in New Tab</label>
+                                </div>
+                            </div>
+                            <div class="flex w-full margin-top-10">
+                                <div class="w-half margin-right-10">
+                                    <label for="actionText_${groupNo}_${sectionCount}">Text</label>
+                                    <input type="text" id="actionText_${groupNo}_${sectionCount}" class="w-full" value="">
+                                </div>
+                                <div class="w-half">
+                                    <label for="link_${groupNo}_${sectionCount}">Link</label>
+                                    <input type="url" id="link_${groupNo}_${sectionCount}" class="w-full" value="">
+                                </div>
+                            </div>
+                            <div class="flex w-full margin-top-10">
+                                <div class="w-half margin-right-10">
+                                    <label for="actionBgColor_${groupNo}_${sectionCount}">Background Color</label><br>
+                                    <input type="color" id="actionBgColor_${groupNo}_${sectionCount}" class="w-30" value="#ffffff">
+                                </div>
+                                <div class="w-half">
+                                    <label for="actionTextColor_${groupNo}_${sectionCount}">Text Color</label><br>
+                                    <input type="color" id="actionTextColor_${groupNo}_${sectionCount}" class="w-30" value="#000000">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+
+                storyList.append(newSection);
+                
+                hideStoryModal();
+            });
+
+            $('.group-list').on('click', '.story-close', function() {
+                $(this).closest('.story-input').remove();
+                refreshStoryList($(this).closest('.story-group'), $(this).closest('.story-group').attr("group"));
+            });
+            
+            $('.group-list').on('change', '.story-group input, .story-group select', hideStoryModal);
+
+            function refreshStoryList(storylist, groupNum) {
+                storylist.find('.story-input').each(function(index) {
+                    let storyNumber = index + 1;
+                    $(this).find('input, label').each(function() {
+                        let id = $(this).attr('id') || '';
+                        if (id) {
+                            let newId = id.split('_')[0] + '_' + groupNum + '_' + storyNumber;
+                            $(this).attr('id', newId);
+                            if ($(this).is('label')) {
+                                $(this).attr('for', newId);
+                            }
+                        }
+                    });
+                });
+            }
+
+            function refreshGroupList() {
+                $('.group-list').find('.group-section').each(function(index) {
+                    let groupNumber = index + 1;
+                    $(this).find('.group-input').find('input, label').each(function() {
+                        let id = $(this).attr('id') || '';
+                        if (id) {
+                            let newId = id.split('_')[0] + '_' + groupNumber;
+                            $(this).attr('id', newId);
+                            if ($(this).is('label')) {
+                                $(this).attr('for', newId);
+                            }
+                        }
+                    });
+                    $(this).find('.story-group').attr('group', groupNumber);
+                    refreshStoryList($(this).find('.story-group'), groupNumber);;
+                });
+
+                updateTheme();
+            }
+
+            function getStoryValues(storylist, groupNum) {
+                let storyData = [];
+                storylist.find('.story-input').each(function(index) {
+                    let storyNumber = index + 1;
+
+                    // let tmp = $(this).find('input[id^="storyImage_"]');
+                    // let storyImage;
+                    // if (tmp) {
+                    //     // storyImage = tmp[0].files[0];
+                    // }
+                    let duration = $(this).find('input[id^="duration_"]').val();
+                    let showTextContent = $(this).find('input[id^="showTextContent_"]').is(':checked');
+                    let header = $(this).find('input[id^="header_"]').val();
+                    let text = $(this).find('input[id^="text_"]').val();
+                    let bgColor = $(this).find('input[id^="bgColor_"]').val();
+                    let textColor = $(this).find('input[id^="textColor_"]').val();
+                    let showActionButton = $(this).find('input[id^="showActionButton_"]').is(':checked');
+                    let openInNewTab = $(this).find('input[id^="openInNewTab_"]').is(':checked');
+                    let actionText = $(this).find('input[id^="actionText_"]').val();
+                    let link = $(this).find('input[id^="link_"]').val();
+                    let actionBgColor = $(this).find('input[id^="actionBgColor_"]').val();
+                    let actionTextColor = $(this).find('input[id^="actionTextColor_"]').val();
+
+                    storyData.push({ storyNumber, duration, showTextContent, header, text, bgColor, textColor, showActionButton, openInNewTab, actionText, link, actionBgColor, actionTextColor });
+                });
+
+                return storyData;
+            }
+
+            function getGroupValues(storyF = false) {
+                let groupsData = [];
+                groupList.find('.group-section').each(function(index) {
+                    let groupNo = index + 1;
+                    let section = $(this).find('.group-input');
+
+                    let storyGroupTitle = section.find('input[id^="storyGroupTitle_"]').val();
+                    let coverImage = section.find('input[id^="coverImage_"]')[0].files[0];
+                    let addSchedule = section.find('input[id^="addSchedule_"]').val();
+                    let startDate = section.find('input[id^="startDate_"]').val();
+                    let endDate = section.find('input[id^="endDate_"]').val();
+                    let storyList;
+                    if (storyF)
+                        storyList = getStoryValues($(this).find('.story-group'), groupNo);
+                    groupsData.push({ groupNo, storyGroupTitle, coverImage, addSchedule, startDate, endDate, storyList });
+                });
+                return groupsData;
+            }
+
+            $('#addGroup').on('click', function() {
+                let sectionCount = groupList.find('.group-section').length + 1;
+
+                let newSection = $(`
+                    <div class="section group-section">
+                        <div class="group-input">
+                            <div class="flex space-between">
+                                <div>
+                                    <label for="storyGroupTitle_${sectionCount}">Story Group Title</label>
+                                    <input type="text" id="storyGroupTitle_${sectionCount}" value="">
+                                </div>
+                                <button class="form-close group-close">✖</button>
+                            </div>
+                            <div class="margin-top-10">
+                                <label>Story Cover Image</label><br>
+                                <input type="file" id="coverImage_${sectionCount}" class="w-full">
+                            </div>
+                            <div class="margin-top-10">
+                                <input type="checkbox" id="addSchedule_${sectionCount}" checked>
+                                <label for="addSchedule_${sectionCount}">Add Schedule</label>
+                            </div>
+                            <div class="flex w-full margin-top-10">
+                                <div class="w-half margin-right-10">
+                                    <label for="startDate_${sectionCount}">Start Date</label>
+                                    <input type="datetime-local" id="startDate_${sectionCount}" class="w-full" value="2024-08-03T06:50">
+                                </div>
+                                <div class="w-half">
+                                    <label for="endDate_${sectionCount}">End Date</label>
+                                    <input type="datetime-local" id="endDate_${sectionCount}" class="w-full" value="2024-08-30T10:54">
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Stories</h3>
+                        <p class="explain">Each story presented on one screen</p>
+                        <div class="story-group" group="${sectionCount}">
+                            No items.
+                        </div>
+                        <!-- Repeat for more stories -->
+                        <button class="add-story-btn">Add Story</button>
+                    </div>
+                `);
+
+                groupList.append(newSection);
+
+                updateFixedBar();
+            });
+
+            $('.group-list').on('change', '.group-input input, .group-input select', updateFixedBar);
+
+            groupList.on('click', '.group-close', function() {
+                $(this).closest('.section').remove();
+                refreshGroupList();
+            });
+            
+            // ----------------------- UI Operate ------------------------ //
+            function updateFixedBar() {
+                const sectionsData = getGroupValues();
+                const storyContainer = $('.story-container');
+                storyContainer.empty(); // Clear previous inputs
+
+                sectionsData.forEach((section, index) => {
+                    const inputElement = $(`
+                        <div class="story-div" group=${section.groupNo}>
+                            <img src="https://via.placeholder.com/60" alt="${section.storyGroupTitle}">
+                            <div>${section.storyGroupTitle}</div>
+                        </div>
+                    `);
+                    storyContainer.append(inputElement);
+
+                    if (section.coverImage) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            inputElement.find('img').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(section.coverImage);
+                    }
+                });
+            }
+
+            function updateTheme() {
+                let desktopPosition = $('#desktopPosition').val();
+                let backgroundColor = $('#backgroundColor').val();
+                let titlesColor = $('#titlesColor').val();
+                let appearAnimation = $('#appearAnimation').is(':checked');
+                let glassEffect = $('#glassEffect').is(':checked');
+                let showHideButton = $('#showHideButton').is(':checked');
+
+                if (desktopPosition === 'hide-on-device') {
+                    $('.fixed-container').hide();
+                }
+                else {
+                    $('.fixed-container').show();
+                    $('.hide-button').hide();
+                    if (desktopPosition !== 'inside-page-top' && showHideButton) {
+                        $('.hide-button').show();
+                    }
+                    if (desktopPosition === 'over-page-top') {
+                        $('.hide-button').text('▲');
+                        $('.hide-button').css({'top': '110px', 'bottom': ''});
+                        $('.fixed-bar.hidden').css('transform', 'translateY(-100%)');
+                    }
+                    else if (desktopPosition === 'over-page-bottom'){
+                        $('.hide-button').text('▼');
+                        $('.hide-button').css({'top': '', 'bottom': '110px'});
+                        $('.fixed-bar.hidden').css('transform', 'translateY(100%)');
+                    }
+                    $('.fixed-bar').removeClass('inside-page-top over-page-top over-page-bottom').addClass(desktopPosition);
+                }
+                $('.fixed-bar').css({'background-color': backgroundColor, 'color': titlesColor});
+                $('.hide-button').css({'background-color': backgroundColor, 'color': titlesColor});
+
+                updateFixedBar();
+            }
+            updateTheme();
+
+            $(".theme-section input, .theme-section select").change(updateTheme);
+
+            // ----------------------- Fixed Bar ------------------------ //
+            $('.hide-button').on('click', function () {
+                let desktopPosition = $('#desktopPosition').val();
+                let fixedBar = $('.fixed-bar');
+                fixedBar.toggleClass('hidden');
+                
+                if (desktopPosition === 'over-page-top') {
+                    $(this).html(fixedBar.hasClass('hidden') ? '▼' : '▲');
+                    if (fixedBar.hasClass('hidden')) {
+                        $(this).css('top', '5px');
+                    } else {
+                        $(this).css('top', '110px');
+                    }
+                }
+                else if (desktopPosition === 'over-page-bottom') {
+                    $(this).html(fixedBar.hasClass('hidden') ? '▲' : '▼');
+                    if (fixedBar.hasClass('hidden')) {
+                        $(this).css('bottom', '5px');
+                    } else {
+                        $(this).css('bottom', '110px');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
