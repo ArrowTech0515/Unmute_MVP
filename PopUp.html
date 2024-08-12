@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Popup Forms</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         body {
             display: flex;
@@ -220,13 +222,15 @@
             </div>
             <div class='section'>
                 <h4>Text design</h4>
-                <textarea id="mainText" style="width: 50%; height: 100px;">Up to 15% off for limited time and on selected items. plus free shipping for the first 100 buyers</textarea>
+                <textarea id="mainText"
+                    style="width: 50%; height: 100px;">Up to 15% off for limited time and on selected items. plus free shipping for the first 100 buyers</textarea>
                 <input type="color" id="mainTextColor" value="#888888" style="width: 50px;">
             </div>
             <div class='section'>
                 <h4>Button design</h4>
                 <label for="buttonText">Button Text</label>
-                <input type="text" id="buttonText" value="Get the discount now!" style="width: 100%; margin-bottom: 10px;">
+                <input type="text" id="buttonText" value="Get the discount now!"
+                    style="width: 100%; margin-bottom: 10px;">
                 <label for="buttonLink">Link</label>
                 <input type="url" id="buttonLink" value="https://example.com" style="width: 100%; margin-bottom: 10px;">
                 <label for="actionType">ActionType</label>
@@ -307,7 +311,9 @@
 
                 <div id="popupFrequencyDiv">
                     <p>Popup Frequency</p>
-                    <label class="explain" for="popupFrequency">Set -1 to disable popup, 0 to display popup only once, and 1 or more to display popup every n days (for example: 30 = display popup every 30 days)</label>
+                    <label class="explain" for="popupFrequency">Set -1 to disable popup, 0 to display popup only once,
+                        and 1 or more to display popup every n days (for example: 30 = display popup every 30
+                        days)</label>
                     <input type="text" id="popupFrequency" style="width: 100%; margin-bottom: 10px;">
                 </div>
             </div>
@@ -323,7 +329,8 @@
                 <i class="fas fa-fire"></i>
                 <div style="align-content: center; padding: 10px;">
                     <h2 id="modalHeader">User put a modal here</h2>
-                    <p id="modalText">Up to 15% off for limited time and on selected items. plus free shipping for the first 100 buyers</p>
+                    <p id="modalText">Up to 15% off for limited time and on selected items. plus free shipping for the
+                        first 100 buyers</p>
                     <button id="modalButton">Get the discount now!</button>
                 </div>
                 <a class="close-button hidden" id="modalCloseButton">X</a>
