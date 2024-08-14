@@ -1,0 +1,54 @@
+can u see?
+at the dashboard , the id is 233 but at the real site, the id is just 200
+
+one second let me open the logs in my server
+okay
+
+load again
+
+
+load the dashboarnow
+
+ok you can continue working i will check and ask you to try again soon
+okay, thank
+
+until id 200 it's the same widgets?
+
+no
+
+it is not updating 
+as i already said several times
+
+yes i understand, i just think maybe it's loading a different user, 
+
+invoke the addmyip
+the ap and t
+
+that was the issue, the tester loaded different users, 
+
+
+you should use the add my ip with app=app name (also for next apps) 
+
+okay, wait a moment , i will try to test and let's see together once
+
+
+good
+
+do you have a time now?
+
+i'm working on the design and then need to start new app but yes what do you need
+
+plz check the other widgets
+
+dashboard, popup, popupform, faq, follow us is ready
+is this right now?
+
+i prefer to test all toether
+
+okay, maybe tomorrow you can test all, yes i will ask someone from my team too, try to finish because i want to start next app soon and we need also apply design
+
+okay, do you need any other developer?? i if it's too urgent
+i have other developers already, need to see who i will use, try to finish
+
+okay, iwill do my all passion
+Thanks for your help
