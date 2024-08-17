@@ -138,7 +138,7 @@
         } */
 
         .btn-save-draft {
-            background-color: #f9c846;
+            background-color: #ffcc00;
             border-radius: 0.75rem;
             color: #fff;
         }
@@ -175,6 +175,7 @@
             border-radius: 0.75rem;
             border: 1px solid #dcdcdc;
             box-shadow: none;
+            font-size: 14px;
         }
 
         .form-floating-label label {
@@ -219,7 +220,7 @@
         }
 
         .option-icon.active {
-            border-color: #ffc107;
+            border-color: #ffcc00;
             background-color: #fff4e3;
         }
 
@@ -238,7 +239,7 @@
 
         .option-card.active,
         .option-card:hover {
-            border-color: #ffc107;
+            border-color: #ffcc00;
             background-color: #fdfff0;
         }
 
@@ -253,7 +254,7 @@
         }
 
         .option-icon img {
-            width: 50px;
+            width: -webkit-fill-available;
         }
 
         .option-text {
@@ -295,7 +296,7 @@
             margin-right: 24px;
         }
         
-        .faq .accordion-button {
+        .faq,.story .accordion-button {
             padding: 0px;
             background-color: transparent;
             box-shadow: none;
@@ -312,6 +313,69 @@
         }
         .faq .option-icon img {
             width: 75px;
+        }
+
+        .story .story-desktop-or-mobile {
+            border: 1px solid #dcdcdc;
+            padding: 5px 20px;
+            background-color: transparent;
+        }
+        .story .story-desktop-or-mobile:hover {
+            border: 1px solid #ffcc00;
+            background-color: #ffcc00;
+            color: white;
+        }
+        .story .story-desktop-or-mobile:focus {
+            border: 1px solid #ffcc00;
+            background-color: #ffcc00;
+            color: black;
+        }
+        .story .story-desktop-or-mobile.story-desktop {
+            border-bottom-left-radius: 20px;
+            border-top-left-radius: 20px;
+        }
+        .story .story-desktop-or-mobile.story-mobile {
+            border-bottom-right-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .story .story-group-details-section button {
+            border-radius: 10px;
+            border: 1px solid #dcdcdc;
+            background-color: transparent;
+        }
+        .story .story-group-details-section button:hover {
+            border: 1px solid #ffcc00;
+            background-color: #ffcc00;
+        }
+
+        .story .story-group-details-section .story-group-details-image-section {
+            position: relative;
+            top: -40px;
+        }
+        .story .story-group-details-section .story-group-details-image-section img{
+            width: -webkit-fill-available;
+            height: 100px;
+            border-radius: 10px;
+        }
+
+        .story .story-news-section {
+            font-size: 14px;
+        }
+
+        .story .story-news-img {
+            width: -webkit-fill-available;
+            height: 100px;
+            border-radius: 10px;
+        }
+        .story .story-news-item button.story-news-explore-gallery {
+            border-radius: 10px;
+            border: 1px solid #dcdcdc;
+            background-color: transparent;
+        }
+        .story .story-news-item button.story-news-explore-gallery:hover {
+            border: 1px solid #ffcc00;
+            background-color: #ffcc00;
         }
     </style>
 
@@ -446,7 +510,7 @@
                     </li>
                 </ul>
                 <div class="row">
-                    <div class="left-side border-raius-10 col-5 p-3">
+                    <div class="left-side border-raius-10 col-12 col-lg-5 p-3">
                         <div class="tab-content h-100 p-3" id="myTabContent">
                             <div class="tab-pane h-100 fade show active" id="dashboardTab" role="tabpanel"
                                 aria-labelledby="dashboard-tab">
@@ -464,10 +528,10 @@
                                         <div class="d-flex justify-content-between">
                                             <h5>Common Questions</h5>
                                             <div class="d-flex justify-content-end align-items-center pr-1 gap-1">
-                                                <button type="button" class="btn btn-sm btn-icon ml-2">
+                                                <button type="button" class="btn btn-sm btn-icon ml-2 faq-btn-edit-question">
                                                     <i class="fas fa-pen"></i>
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-icon ml-2">
+                                                <button type="button" class="btn btn-sm btn-icon ml-2 faq-btn-add-question">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
@@ -477,7 +541,7 @@
                                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                                     <div class="py-1 px-2 rounded-2" style="background-color: #dcdcdc;">First Question</div>
                                                     <div class="justify-content-end">
-                                                        <button type="button" class="btn btn-sm btn-icon ml-2">
+                                                        <button type="button" class="btn btn-sm btn-icon ml-2 faq-btn-delete-question">
                                                             <i class="far fa-trash-alt" style="color: red;"></i>
                                                         </button>
                                                     </div>
@@ -502,7 +566,7 @@
                                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                                     <div class="py-1 px-2 rounded-2" style="background-color: #dcdcdc;">Second Question</div>
                                                     <div class="justify-content-end">
-                                                        <button type="button" class="btn btn-sm btn-icon ml-2">
+                                                        <button type="button" class="btn btn-sm btn-icon ml-2 faq-btn-delete-question">
                                                             <i class="far fa-trash-alt" style="color: red;"></i>
                                                         </button>
                                                     </div>
@@ -523,13 +587,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="accordion" id="faq-accordion">
+                                        <div class="accordion" id="faq_accordion">
     
                                             <h2 class="accordion-header" id="show-hide-advanced-configuration">
                                             <a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq_advanced_config_content" aria-expanded="true" aria-controls="collapseOne">
                                                 Show Advanced Configuration 
                                             </a>
-                                            <div id="faq_advanced_config_content" class="accordion-collapse collapse show" aria-labelledby="show-hide-advanced-configuration" data-bs-parent="#faq-accordion">
+                                            <div id="faq_advanced_config_content" class="accordion-collapse collapse show" aria-labelledby="show-hide-advanced-configuration" data-bs-parent="#faq_accordion">
                                                 <div class="accordion-body">
                                                     <div class="my-3"><h6>Button</h6></div>
                                                     <div class="row mt-2">
@@ -774,16 +838,371 @@
                                     
                                         
                                     <div class="d-flex justify-content-between mt-4">
-                                        <button class="btn btn-save-draft">Save Draft</button>
-                                        <button class="btn btn-publish"><span style="color: #aaa">Next Step &nbsp; |</span> &nbsp; Publish Follow Us Widget</button>
+                                        <button id="faq_btn_save_draft" class="btn btn-save-draft">Save Draft</button>
+                                        <button id="faq_btn_next_step" class="btn btn-publish"><span style="color: #aaa">Next Step &nbsp; |</span> &nbsp; Publish Follow Us Widget</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="tab-pane h-100 fade" id="review" role="tabpanel" aria-labelledby="review-tab">
                                 <p>Review</p>
                             </div>
-                            <div class="tab-pane h-100 fade" id="story" role="tabpanel" aria-labelledby="story-tab">
-                                <p>Story</p>
+                            <div class="tab-pane h-100 fade story" id="story" role="tabpanel" aria-labelledby="story-tab">
+                                <form id="storyForm" class="h-100 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class=""><h5>Interactive News</h5></div>
+                                            <div class="d-flex justify-content-end align-items-center pr-1 gap-2">
+                                                <div class="d-flex">
+                                                    <button class="story-desktop-or-mobile story-desktop text-center" id="story_btn_desktop">
+                                                        Desktop
+                                                    </button>
+                                                    <button class="story-desktop-or-mobile story-mobile text-center" id="story_btn_mobile">
+                                                        Mobile
+                                                    </button>    
+                                                </div>
+                                                <button type="button" id="story-btn-edit" class="btn btn-sm btn-icon ml-2">
+                                                    <i class="fas fa-pen"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="my-3"><h6>Desktop Layout</h6></div>
+                                        <div class="row story-desktop-layout-section justify-content-between">
+                                            <div class="col-2 text-center">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-desktop-layout-style" value="top-inside" checked>
+                                                        <img class="story-desktop-layout-style" src="./story-top-inside.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Top Inside</div>
+                                            </div>
+                                            <div class="col-2 text-center">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-desktop-layout-style" value="top-over" >
+                                                        <img class="story-desktop-layout-style" src="./story-top-over.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Top Over</div>
+                                            </div>
+                                            <div class="col-2 text-center">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-desktop-layout-style" value="bottom-over" >
+                                                        <img class="story-desktop-layout-style" src="./story-bottom-over.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Bottom Over</div>
+                                            </div>
+                                            <div class="col-2 text-center">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-desktop-layout-style" value="left-over" >
+                                                        <img class="story-desktop-layout-style" src="./story-left-over.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Left Over</div>
+                                            </div>
+                                            <div class="col-2 text-center">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-desktop-layout-style" value="right-over" >
+                                                        <img class="story-desktop-layout-style" src="./story-right-over.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Right Over</div>
+                                            </div>
+                                        </div>
+                                        <div class="divider-b-1 mt-3"></div>
+                                        <div class="row story-animation-section">
+                                            <div class="col-5">
+                                                <div class="my-3"><h6>Animations</h6></div>
+                                                <div class="row">
+                                                    <div class="col-6 text-center">
+                                                        <div class="option-card mb-2">
+                                                            <div class="option-icon">
+                                                                <input type="radio" name="story-animations-style" value="rotating-border" checked>
+                                                                <img class="story-animations-style" src="./story-rotating-border.png">
+                                                            </div>
+                                                        </div>
+                                                        <div class="option-subtext">Rotating Border</div>
+                                                    </div>
+                                                    <div class="col-6 text-center">
+                                                        <div class="option-card mb-2">
+                                                            <div class="option-icon">
+                                                                <input type="radio" name="story-animations-style" value="glass-effect">
+                                                                <img class="story-animations-style" src="./story-galss-effect.png">
+                                                            </div>
+                                                        </div>
+                                                        <div class="option-subtext">Glass Effect</div>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                            <div class="col-7">
+                                                <div class="my-3"><h6>Colors</h6></div>
+                                                <div class="row ">
+                                                    <div class="col-6 text-center">
+                                                        <div class="option-card mb-2">
+                                                            <div class="option-icon">
+                                                                <input type="radio" name="story-colors-style" value="bg-border" checked>
+                                                                <img class="story-colors-style" src="./story-background-color.png">
+                                                            </div>
+                                                        </div>
+                                                        <div class="option-subtext">Background Color</div>
+                                                    </div>
+                                                    <div class="col-6 text-center">
+                                                        <div class="option-card mb-2">
+                                                            <div class="option-icon">
+                                                                <input type="radio" name="story-colors-style" value="story-title-color">
+                                                                <img class="story-colors-style" src="./story-title-color.png">
+                                                            </div>
+                                                        </div>
+                                                        <div class="option-subtext">Story Title Color</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="divider-b-1 mt-3"></div>
+                                        <div class="form-check form-check-custom mt-4">
+                                            <input class="form-check-input" type="checkbox" value="" id="story_show_hide_button" checked>
+                                            <label class="form-check-label" for="faq_show_hide_button">
+                                                Show Hide Button
+                                            </label>
+                                        </div>
+                                        <div class="my-3"><h6>Group Details</h6></div>
+                                        <div class="row story-group-details-section">
+                                            <div class="col-9">
+                                                <div class="form-floating-label">
+                                                    <input type="text" class="form-control" id="story_news_group_title" placeholder="Whispers of the Forgotten Forest"
+                                                        aria-label="story_news_group_title">
+                                                    <label for="story_news_group_title">News Group Title</label>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6 align-content-center">
+                                                        <div class="form-floating-label">
+                                                            <input type="file" class="form-control" id="story_group_details_file"
+                                                                aria-label="story_group_details_file" style="border-style: dashed;">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 align-content-center">
+                                                        <div class="form-floating-label">
+                                                            <button class="w-100 px-4 py-2" id="story_explore_gallery">Explore Gallery</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 story-group-details-image-section">
+                                                <div class="mb-3">Cover Image</div>
+                                                <img src="./profile.png">
+                                            </div>
+                                        </div>
+                                        <div class="divider-b-1 mt-3"></div>
+                                        <div class="my-3"><h6>What do you want to show in your News?</h6></div>
+                                        <div class="row story-news-section">
+                                            <div class="col-4 story-news-style-img">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-news-style" value="images-only" checked>
+                                                        <img class="story-news-style" src="./story-images-only.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Images Only</div>
+                                            </div>
+                                            <div class="col-4 story-news-style-img">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-news-style" value="images-and-text" >
+                                                        <img class="story-news-style" src="./story-images-and-text.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Images and Text</div>
+                                            </div>
+                                            <div class="col-4 story-news-style-img">
+                                                <div class="option-card mb-2">
+                                                    <div class="option-icon">
+                                                        <input type="radio" name="story-news-style" value="images-text-and-button" >
+                                                        <img class="story-news-style" src="./story-images-text-and-button.png">
+                                                    </div>
+                                                </div>
+                                                <div class="option-subtext">Images Text and Button</div>
+                                            </div>
+                                            <div class="d-flex justify-content-between my-3">
+                                                <div class="form-floating-label" style="min-width: 150px;">
+                                                    <select class="form-select form-select-custom w-100" id="story-number-of-news">
+                                                        <option value="5" selected>5</option>
+                                                    </select>
+                                                    <label for="story-number-of-news">Number of News</label>
+                                                </div>
+                                                <div class="d-flex justify-content-end align-items-center pr-1 gap-2">
+                                                    <div class="accordion" id="story_accordion">
+                                                        <h2 class="accordion-header" id="story-show-hide-advanced-configuration">
+                                                        <a class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#story_advanced_config_content" aria-expanded="true" aria-controls="collapseOne">
+                                                            Show Advanced Configuration 
+                                                        </a></h2>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="story_advanced_config_content" class="accordion-collapse collapse show" aria-labelledby="story-show-hide-advanced-configuration" data-bs-parent="#story_accordion">
+                                                <div class="accordion-body">
+                                                    <div class="divider-b-1 mt-3"></div>
+                                                    <div class="my-3"><h6>Interactive News Advanced Configuration</h6></div>
+                                                    <div class="story-advnaced-config-section">
+                                                        <div class="row">
+                                                            <div class="col-6 story-news-item">
+                                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                                    <div class="py-1 px-2 rounded-2" style="background-color: #dcdcdc;">First Story</div>
+                                                                    <div class="justify-content-end">
+                                                                        <button type="button" class="btn btn-sm btn-icon ml-2 story-btn-delete-news">
+                                                                            <i class="far fa-trash-alt" style="color: red;"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <select class="form-select form-select-custom" id="story_news_duration">
+                                                                                <option value="10" selected>10 Sec</option>
+                                                                            </select>
+                                                                            <label for="story_news_duration">Duration</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <input type="text" class="form-control" id="story_news_title" placeholder="Splash Target"
+                                                                                aria-label="story_news_title">
+                                                                            <label for="story_news_title">Title</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-2">Story Image</div>
+                                                                    <div class="col-6">
+                                                                        <img src="./profile.png" class="story-news-img">
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <input type="file" class="form-control story-news-file" 
+                                                                                aria-label="story_group_details_file" style="border-style: dashed;">
+                                                                        </div>
+                                                                        <div class="form-floating-label">
+                                                                            <button class="w-100 px-2 py-2 story-news-explore-gallery">Explore Gallery</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <textarea type="textarea" class="form-control" id="story_news_text_1" placeholder="We have lots of amazing offers." aria-label="story_news_text_1"></textarea>
+                                                                            <label for="story_news_text_1">Text</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <input type="text" class="form-control" id="story_news_button_text_1" placeholder="Splash Target"
+                                                                                aria-label="story_news_button_text_1">
+                                                                            <label for="story_news_button_text_1">Button Text</label>
+                                                                        </div>
+                                                                        <div class="form-floating-label">
+                                                                            <input type="text" class="form-control" id="story_news_link_1" placeholder="Splash Target"
+                                                                                aria-label="story_news_link_1">
+                                                                            <label for="story_news_link_1">Link</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 story-news-item">
+                                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                                    <div class="py-1 px-2 rounded-2" style="background-color: #dcdcdc;">Second Story</div>
+                                                                    <div class="justify-content-end">
+                                                                        <button type="button" class="btn btn-sm btn-icon ml-2 story-btn-delete-news">
+                                                                            <i class="far fa-trash-alt" style="color: red;"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <select class="form-select form-select-custom" id="story_news_duration">
+                                                                                <option value="10" selected>10 Sec</option>
+                                                                            </select>
+                                                                            <label for="story_news_duration">Duration</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <input type="text" class="form-control" id="story_news_title" placeholder="Splash Target"
+                                                                                aria-label="story_news_title">
+                                                                            <label for="story_news_title">Title</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="mb-2">Story Image</div>
+                                                                    <div class="col-6">
+                                                                        <img src="./profile.png" class="story-news-img">
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <input type="file" class="form-control story-news-file" 
+                                                                                aria-label="story_group_details_file" style="border-style: dashed;">
+                                                                        </div>
+                                                                        <div class="form-floating-label">
+                                                                            <button class="w-100 px-2 py-2 story-news-explore-gallery">Explore Gallery</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <textarea type="textarea" class="form-control" id="story_news_text_2" placeholder="We have lots of amazing offers." aria-label="story_news_text_2"></textarea>
+                                                                            <label for="story_news_text_2">Text</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        <div class="form-floating-label">
+                                                                            <input type="text" class="form-control" id="story_news_button_text_2" placeholder="Splash Target"
+                                                                                aria-label="story_news_button_text_2">
+                                                                            <label for="story_news_button_text_2">Button Text</label>
+                                                                        </div>
+                                                                        <div class="form-floating-label">
+                                                                            <input type="text" class="form-control" id="story_news_link_2" placeholder="Splash Target"
+                                                                                aria-label="story_news_link_2">
+                                                                            <label for="story_news_link_2">Link</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 divider-b-1 mb-3"></div>
+                                                        <div class="row">
+                                                            <div class="col-12 my-3">
+                                                                <div class="form-check form-check-custom">
+                                                                    <input class="form-check-input" type="checkbox" value="" id="story_add_schedule" checked>
+                                                                    <label class="form-check-label" for="story_add_schedule">
+                                                                        Add Schedule
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-floating-label">
+                                                                    <input type="date" class="form-control" id="story_start_date" aria-label="story_start_date">
+                                                                    <label for="story_start_date">Start</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-floating-label">
+                                                                    <input type="date" class="form-control" id="story_end_date" aria-label="story_end_date">
+                                                                    <label for="story_end_date">End</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-4">
+                                        <button id="story_btn_save_draft" class="btn btn-save-draft">Save Draft</button>
+                                        <button id="story_btn_preview" class="btn btn-save-draft">Preview</button>
+                                        <button id="story_btn_next_step" class="btn btn-publish"><span style="color: #aaa">Next Step &nbsp; |</span> &nbsp; Customize News</button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="tab-pane h-100 fade" id="contactus" role="tabpanel" aria-labelledby="contactus-tab">
                                 <p>Contact Us</p>
@@ -1115,7 +1534,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="right-side border-radius-10 col-7 p-3">
+                    <div class="right-side border-radius-10 col-12 col-lg-7  p-3">
                         <div>
                             <div class="d-flex justify-content-between p-3">
                                 <h5>Side Preview</h5>
