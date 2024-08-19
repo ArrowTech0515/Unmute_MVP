@@ -572,8 +572,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {         
-            let questionList = $('#questionList');
-
             function showModal() {
                 $('.modal').show();
             }
@@ -824,7 +822,7 @@
             });
 
             function refreshContactNumbers() {
-                questionList.find('.section').each(function(index) {
+                $('#questionList').find('.section').each(function(index) {
                     let sectionNumber = index + 1;
                     $(this).find('.contact-no').text(`#${sectionNumber}`);
                     $(this).find('input, label').each(function() {
@@ -843,7 +841,7 @@
 
             function getSectionValues() {
                 let sectionsData = [];
-                questionList.find('.section').each(function() {
+                $('#questionList').find('.section').each(function() {
                     let section = $(this);
                     let question = section.find('input[id^="question_"]').val();
                     let answer = section.find('input[id^="answer_"]').val();
@@ -854,7 +852,7 @@
             }
 
             $('#addItem').on('click', function() {
-                let sectionCount = questionList.find('.section').length + 1;
+                let sectionCount = $('#questionList').find('.section').length + 1;
 
                 let newSection = $(`
                     <div class="section">
@@ -877,7 +875,7 @@
                     </div>    
                 `);
 
-                questionList.append(newSection);
+                $('#questionList').append(newSection);
 
                 newSection.find('.form-close').on('click', function() {
                     $(this).closest('.section').remove();
@@ -889,7 +887,7 @@
                 updateModal();
             });
 
-            questionList.on('click', '.form-close', function() {
+            $('#questionList').on('click', '.form-close', function() {
                 $(this).closest('.section').remove();
                 refreshContactNumbers();
             });

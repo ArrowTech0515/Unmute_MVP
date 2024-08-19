@@ -176,7 +176,7 @@
             background-color: #fff;
         }
 
-        .story {
+        .story-input {
             border: 1px solid #ccc;
             border-radius: 5px;
             padding: 10px;
@@ -184,7 +184,7 @@
             background-color: #f9f9f9;
         }
 
-        .story img {
+        .story-input img {
             width: 100px;
             height: auto;
             display: block;
@@ -302,6 +302,75 @@
         .hide-button:hover {
             background-color: #c9302c;
         }
+
+        .carousel-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .carousel {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .carousel-slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: opacity 1s ease-in-out;
+        }
+        .carousel-slide img {
+            width: 400px;
+            height: 500px;
+        }
+        .carousel-content {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+        }
+        .carousel-content .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .carousel-content .subtitle {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .carousel-content .button {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .carousel-slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            padding: 5px 8px;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -315,7 +384,7 @@
                         <label for="desktopPosition">Desktop Position</label>
                         <select id="desktopPosition" class="w-full">
                             <option value="inside-page-top">Top (inside the page)</option>
-                            <option value="over-page-top">Top (over the page)</option>
+                            <option value="over-page-top" selected>Top (over the page)</option>
                             <option value="over-page-bottom">Bottom (over the page)</option>
                             <option value="hide-on-device">Hide on desktop</option>
                         </select>
@@ -398,7 +467,7 @@
                             </div>
                             <div class="margin-top-10">
                                 <label for="duration">Duration (seconds)</label>
-                                <input type="number" id="duration_1_1" value="1">
+                                <input type="number" id="duration_1_1" value="2">
                             </div>
                             <div class="margin-top-10">
                                 <h4>Text Content</h4>
@@ -409,11 +478,11 @@
                                 <div class="flex w-full margin-top-10">
                                     <div class="w-half margin-right-10">
                                         <label for="header_1_1">Header</label>
-                                        <input type="text" id="header_1_1" class="w-full" value="Header">
+                                        <input type="text" id="header_1_1" class="w-full" value="Header1_1">
                                     </div>
                                     <div class="w-half">
                                         <label for="text_1_1">Text</label>
-                                        <input type="text" id="text_1_1" class="w-full" value="Text">
+                                        <input type="text" id="text_1_1" class="w-full" value="Text1_1">
                                     </div>
                                 </div>
                                 <div class="flex w-full margin-top-10">
@@ -467,11 +536,11 @@
                                 <button class="form-close story-close">✖</button>
                             </div>
                             <div class="margin-top-10">
-                                <input type="file" id="image_1_2" class="w-full">
+                                <input type="file" id="storyImage_1_2" class="w-full">
                             </div>
                             <div class="margin-top-10">
                                 <label for="duration_1_2">Duration (seconds)</label>
-                                <input type="number" id="duration_1_2" value="4">
+                                <input type="number" id="duration_1_2" value="3">
                             </div>
                             <div class="margin-top-10">
                                 <h4>Text Content</h4>
@@ -482,11 +551,11 @@
                                 <div class="flex w-full margin-top-10">
                                     <div class="w-half margin-right-10">
                                         <label for="header_1_2">Header</label>
-                                        <input type="text" id="header_1_2" class="w-full" value="Looking forward...">
+                                        <input type="text" id="header_1_2" class="w-full" value="Looking forward...1_2">
                                     </div>
                                     <div class="w-half">
                                         <label for="text_1_2">Text</label>
-                                        <input type="text" id="text_1_2" class="w-full" value="We made the best website! Presale is starting soon, see you later!">
+                                        <input type="text" id="text_1_2" class="w-full" value="We made the best website! Presale is starting soon, see you later!1_2">
                                     </div>
                                 </div>
                                 <div class="flex w-full margin-top-10">
@@ -540,11 +609,11 @@
                                 <button class="form-close story-close">✖</button>
                             </div>
                             <div class="margin-top-10">
-                                <input type="file" id="image_1_3" class="w-full">
+                                <input type="file" id="storyImage_1_3" class="w-full">
                             </div>
                             <div class="margin-top-10">
                                 <label for="duration_1_3">Duration (seconds)</label>
-                                <input type="number" id="duration_1_3" value="5">
+                                <input type="number" id="duration_1_3" value="3">
                             </div>
                             <div class="margin-top-10">
                                 <h4>Text Content</h4>
@@ -555,7 +624,7 @@
                                 <div class="flex w-full margin-top-10">
                                     <div class="w-half margin-right-10">
                                         <label for="header_1_3">Header</label>
-                                        <input type="text" id="header_1_3" class="w-full" value="">
+                                        <input type="text" id="header_1_3" class="w-full" value="1_3">
                                     </div>
                                     <div class="w-half">
                                         <label for="text_1_3">Text</label>
@@ -653,7 +722,7 @@
                             </div>
                             <div class="margin-top-10">
                                 <label for="duration">Duration (seconds)</label>
-                                <input type="number" id="duration_2_1" value="1">
+                                <input type="number" id="duration_2_1" value="2">
                             </div>
                             <div class="margin-top-10">
                                 <h4>Text Content</h4>
@@ -664,11 +733,11 @@
                                 <div class="flex w-full margin-top-10">
                                     <div class="w-half margin-right-10">
                                         <label for="header_2_1">Header</label>
-                                        <input type="text" id="header_2_1" class="w-full" value="Header">
+                                        <input type="text" id="header_2_1" class="w-full" value="Header2_1">
                                     </div>
                                     <div class="w-half">
                                         <label for="text_2_1">Text</label>
-                                        <input type="text" id="text_2_1" class="w-full" value="Text">
+                                        <input type="text" id="text_2_1" class="w-full" value="Text2_1">
                                     </div>
                                 </div>
                                 <div class="flex w-full margin-top-10">
@@ -722,11 +791,11 @@
                                 <button class="form-close story-close">✖</button>
                             </div>
                             <div class="margin-top-10">
-                                <input type="file" id="image_2_2" class="w-full">
+                                <input type="file" id="storyImage_2_2" class="w-full">
                             </div>
                             <div class="margin-top-10">
                                 <label for="duration_2_2">Duration (seconds)</label>
-                                <input type="number" id="duration_2_2" value="4">
+                                <input type="number" id="duration_2_2" value="2">
                             </div>
                             <div class="margin-top-10">
                                 <h4>Text Content</h4>
@@ -737,11 +806,11 @@
                                 <div class="flex w-full margin-top-10">
                                     <div class="w-half margin-right-10">
                                         <label for="header_2_2">Header</label>
-                                        <input type="text" id="header_2_2" class="w-full" value="Looking forward...">
+                                        <input type="text" id="header_2_2" class="w-full" value="Looking forward...2_2">
                                     </div>
                                     <div class="w-half">
                                         <label for="text_2_2">Text</label>
-                                        <input type="text" id="text_2_2" class="w-full" value="We made the best website! Presale is starting soon, see you later!">
+                                        <input type="text" id="text_2_2" class="w-full" value="We made the best website! Presale is starting soon, see you later!2_2">
                                     </div>
                                 </div>
                                 <div class="flex w-full margin-top-10">
@@ -798,7 +867,7 @@
                         <div class="flex space-between">
                             <div>
                                 <label for="storyGroupTitle_3">Story Group Title</label>
-                                <input type="text" id="storyGroupTitle_3" value="">
+                                <input type="text" id="storyGroupTitle_3" value="Group3_1">
                             </div>
                             <button class="form-close group-close">✖</button>
                         </div>
@@ -836,6 +905,14 @@
             <button class="margin-top-20" style="height: 30px;" type="button" id="saveSettings">Save settings</button>
         </div>
         <div class="right">
+            <div class="carousel-object hidden">
+                <div class="carousel-container">
+                    <a class="close-button">X</a>
+                    <div class="carousel">
+                    </div>
+                </div>
+            </div>
+
             <div class="fixed-container">
                 <div class="fixed-bar">
                     <div class="story-container">
@@ -854,44 +931,84 @@
                     </div>
                 </div>
                 <button class="hide-button">&#x25B2;</button>
-            </div>
-
+            </div>            
             <iframe id="iframe" src="https://www.rabbitseo.com"></iframe>
-
-            <div class="modal hidden">
-                <div class="modal-header">
-                    <div class="w-full space-between">
-                        <h2>Questions? 🤔</h2>
-                        <button class="close-button">&times;</button>
-                    </div>
-                    <p>Check info below or send us a question to</p>
-                </div>
-                <div class="modal-content">
-                    <div class="questions">
-                        <div class="question-item">
-                            <div class="question">Can I refund products?</div>
-                            <div class="answer">Yes, you can refund products within 30 days of purchase.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <p>For any question call us to <a href="tel:+89997774652" style="text-decoration: none;">+89997774652</a></p>
-                </div>
-            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {     
             // ----------------------- Story Modal Operate ------------------------ //
+            var slideTimeout;
+
+            function showSlide(index) {
+                var slides = $('.carousel-slide');
+                slides.removeClass('active').css('opacity', '0');
+                slides.eq(index).addClass('active').css('opacity', '1');
+                
+                var duration = slides.eq(index).data('duration');
+
+                // Clear any existing timeout
+                clearTimeout(slideTimeout);
+
+                slideTimeout = setTimeout(function () {
+                    var nextIndex = (index + 1) % slides.length;
+                    showSlide(nextIndex);
+                }, duration);
+            }
+            
             function showStoryModal(groupNo) {
                 let groupStoryList = getGroupValues(true);
-                console.log(groupStoryList);
+                $('.carousel').empty();
+
+                groupStoryList.forEach((groupSection, groupIndex) => {
+                    groupSection.storyList.forEach((story, index) => {
+                        let content = '', button = '';
+                        if (story.showTextContent) {
+                            content = ` 
+                                        <div class="margin-top-10"><span class="story">${story.header}</span></div>
+                                        <div class="margin-top-10"><span class="story">${story.text}</span></div>
+                                    `;
+                        }
+                        if (story.openInNewTab) {
+                            button = `<div class="margin-top-20"> 
+                                <a href="${story.link}" ${story.openInNewTab ? 'target="_blank"' : ''} class="button">${story.actionText}</a>
+                                </div>`;
+                        }
+                        const inputElement = $(`
+                                <div class="carousel-slide" data-duration="${story.duration*1000}">
+                                    <img src="https://via.placeholder.com/400x600" alt="Slide">
+                                    <div class="carousel-content">
+                                        <div class="group-title">${groupSection.storyGroupTitle}</div>
+                                        <div> ${story.header}</div>
+                                        ${content}
+                                        ${button}
+                                    </div>
+                                </div>
+                            `);
+                        $('.carousel').append(inputElement);
+                        inputElement.find('.story').css({'background-color': story.bgColor, 'color': story.textColor});
+                        inputElement.find('.button').css({'background-color': story.actionBgColor, 'color': story.actionTextColor});
+                        if (story.storyImage) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                inputElement.find('img').attr('src', e.target.result);
+                            }
+                            reader.readAsDataURL(story.storyImage);
+                        }
+                    });
+                });
+                $('.carousel .carousel-slide').first().addClass('active');
+                $('.carousel-object').show();
+
+                showSlide(0);
             }
 
             function hideStoryModal() {
-                
+                $('.carousel-object').hide();
             }
+
+            $('.carousel-object .close-button').on('click', hideStoryModal);
 
             $('.story-container').on('click', 'img', function() {
                 let groupNo = $(this).closest('.story-div').attr('group');
@@ -913,7 +1030,7 @@
                             <button class="form-close story-close">✖</button>
                         </div>
                         <div class="margin-top-10">
-                            <input type="file" id="image_${groupNo}_${sectionCount}" class="w-full">
+                            <input type="file" id="storyImage_${groupNo}_${sectionCount}" class="w-full">
                         </div>
                         <div class="margin-top-10">
                             <label for="duration_${groupNo}_${sectionCount}">Duration (seconds)</label>
@@ -990,6 +1107,7 @@
             $('.group-list').on('click', '.story-close', function() {
                 $(this).closest('.story-input').remove();
                 refreshStoryList($(this).closest('.story-group'), $(this).closest('.story-group').attr("group"));
+                hideStoryModal();
             });
             
             $('.group-list').on('change', '.story-group input, .story-group select', hideStoryModal);
@@ -1035,11 +1153,7 @@
                 storylist.find('.story-input').each(function(index) {
                     let storyNumber = index + 1;
 
-                    // let tmp = $(this).find('input[id^="storyImage_"]');
-                    // let storyImage;
-                    // if (tmp) {
-                    //     // storyImage = tmp[0].files[0];
-                    // }
+                    let storyImage = $(this).find('input[id^="storyImage_"]')[0].files[0];
                     let duration = $(this).find('input[id^="duration_"]').val();
                     let showTextContent = $(this).find('input[id^="showTextContent_"]').is(':checked');
                     let header = $(this).find('input[id^="header_"]').val();
@@ -1053,7 +1167,7 @@
                     let actionBgColor = $(this).find('input[id^="actionBgColor_"]').val();
                     let actionTextColor = $(this).find('input[id^="actionTextColor_"]').val();
 
-                    storyData.push({ storyNumber, duration, showTextContent, header, text, bgColor, textColor, showActionButton, openInNewTab, actionText, link, actionBgColor, actionTextColor });
+                    storyData.push({ storyNumber, storyImage, duration, showTextContent, header, text, bgColor, textColor, showActionButton, openInNewTab, actionText, link, actionBgColor, actionTextColor });
                 });
 
                 return storyData;
@@ -1075,6 +1189,7 @@
                         storyList = getStoryValues($(this).find('.story-group'), groupNo);
                     groupsData.push({ groupNo, storyGroupTitle, coverImage, addSchedule, startDate, endDate, storyList });
                 });
+                console.log(groupsData);
                 return groupsData;
             }
 
@@ -1130,6 +1245,7 @@
             groupList.on('click', '.group-close', function() {
                 $(this).closest('.section').remove();
                 refreshGroupList();
+                hideStoryModal();
             });
             
             // ----------------------- UI Operate ------------------------ //
